@@ -3,6 +3,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# large generated theme file
+oxygen_rc.py
+
 # C extensions
 *.so
 
