@@ -1,0 +1,3 @@
+[submodule "character-creator/resources/icons"]
+	path = character-creator/resources/icons
+	url = git@github.com:pasnox/oxygen-icons-png.git
