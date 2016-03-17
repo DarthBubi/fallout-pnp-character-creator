@@ -3,13 +3,13 @@ import calcSkills
 __author__ = "Johannes Hackbarth"
 
 
-class FalloutCharacter:
+class FalloutCharacter(object):
 
     def __init__(self):
         # characteristics
         self.name = "Your Name"
         self.age = 0
-        self.sex = None
+        self.sex = ""
         self.eyes = "Colour"
         self.hair = "Colour"
         self.height = 1.0
@@ -141,6 +141,9 @@ class HumanCharacter(FalloutCharacter):
         self.agility = 5
         self.luck = 5
 
+    def __str__(self):
+        return "Human"
+
 
 class GhoulCharacter(FalloutCharacter):
 
@@ -169,6 +172,9 @@ class GhoulCharacter(FalloutCharacter):
         self.intelligence = 6
         self.agility = 4
         self.luck = 7
+
+    def __str__(self):
+        return "Ghoul"
 
 
 class SuperMutantCharacter(FalloutCharacter):
@@ -199,6 +205,9 @@ class SuperMutantCharacter(FalloutCharacter):
         self.agility = 4
         self.luck = 5
 
+    def __str__(self):
+        return "Super Mutant"
+
 
 class HalfMutantCharacter(FalloutCharacter):
 
@@ -227,6 +236,9 @@ class HalfMutantCharacter(FalloutCharacter):
         self.intelligence = 5
         self.agility = 5
         self.luck = 5
+
+    def __str__(self):
+        return "Half Mutant"
 
 
 class DeathclawCharacter(FalloutCharacter):
@@ -257,6 +269,9 @@ class DeathclawCharacter(FalloutCharacter):
         self.agility = 9
         self.luck = 4
 
+    def __str__(self):
+        return "Deathclaw"
+
 
 class DogCharacter(FalloutCharacter):
 
@@ -286,6 +301,9 @@ class DogCharacter(FalloutCharacter):
         self.agility = 7
         self.luck = 5
 
+    def __str__(self):
+        return "Dog"
+
 
 class RobotCharacter(FalloutCharacter):
 
@@ -314,3 +332,6 @@ class RobotCharacter(FalloutCharacter):
         self.intelligence = 5
         self.agility = 5
         self.luck = 5
+
+    def __str__(self):
+        return "Robot"
