@@ -14,7 +14,7 @@ pyqt5
 
 For using the provided icon pack, you must run first:
 
-``pyrcc5 -o ./character-creator/oygen_rc.py 
+``pyrcc5 -o ./character-creator/oxygen_rc.py 
 ./character-creator/resources/icons/oxygen.qrc``
 
 Then you can start the application with:
