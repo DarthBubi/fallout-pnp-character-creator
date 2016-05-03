@@ -24,7 +24,7 @@ class CharacterCreator(QtWidgets.QMainWindow, mainView.Ui_MainWindow):
         self.character_dict = {self.foo.name: self.foo}
         super(CharacterCreator, self).__init__(parent)
         self.setupUi(self)
-        self.quitAction.triggered.connect(self.quit)
+        self.quitAction.triggered.connect(self.close)
         self.aboutAction.triggered.connect(self.about)
         self.openCharacterAction.triggered.connect(self.file_open)
         self.newCharacterAction.triggered.connect(self.new_character_dummy)
@@ -108,11 +108,13 @@ class CharacterCreator(QtWidgets.QMainWindow, mainView.Ui_MainWindow):
         # with open(name, 'r') as file:
         #     contents = file.read()
 
-    def quit(self):
+    def closeEvent(self, event):
         choice = QtWidgets.QMessageBox.question(self, 'Quit Application', "Do you want to quit the application?",
                                                 QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
         if choice == QtWidgets.QMessageBox.Yes:
-            sys.exit()
+            event.accecpt()
+        else:
+            event.ignore()
 
     @staticmethod
     def about():
