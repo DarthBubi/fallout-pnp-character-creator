@@ -66,3 +66,6 @@ target/
 
 # PyCharm
 .idea/
+
+# Windows Thumbnails
+Thumbs.db
