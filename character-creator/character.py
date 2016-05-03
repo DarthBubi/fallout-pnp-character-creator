@@ -1,4 +1,4 @@
-import calcSkills
+import calc_skills
 
 __author__ = "Johannes Hackbarth"
 
@@ -53,24 +53,24 @@ class FalloutCharacter(object):
         self.traits = []
 
     def calculate_base_skills(self):
-        self.small_guns = calcSkills.calculate_small_guns(self.agility)
-        self.big_guns = calcSkills.calculate_big_guns(self.strength, self.perception, self.endurance)
-        self.energy_weapons = calcSkills.calculate_energy_weapons(self.perception, self.intelligence)
-        self.unarmed = calcSkills.calculate_unarmed(self.agility, self.strength)
-        self.melee_weapons = calcSkills.calculate_unarmed(self.agility, self.strength)
-        self.throwing = calcSkills.calculate_throwing(self.agility)
-        self.explosives = calcSkills.calculate_explosives(self.perception, self.luck)
-        self.doctor = calcSkills.calculate_doctor(self.perception, self.endurance)
-        self.sneak = calcSkills.calculate_sneak(self.agility)
-        self.lockpick = calcSkills.calculate_lockpick(self.perception, self.agility)
-        self.traps = calcSkills.caclulate_traps(self.perception, self.agility)
-        self.science = calcSkills.calculate_science(self.intelligence)
-        self.repair = calcSkills.calculate_repair(self.intelligence)
-        self.pilot = calcSkills.calculate_pilot(self.agility, self.perception)
-        self.speech = calcSkills.caclulate_speech(self.charisma)
-        self.barter = calcSkills.calculate_barter(self.charisma)
-        self.gambling = calcSkills.calculate_gambling(self.perception, self.luck)
-        self.survival = calcSkills.calculate_survival(self.endurance, self.intelligence)
+        self.small_guns = calc_skills.calculate_small_guns(self.agility)
+        self.big_guns = calc_skills.calculate_big_guns(self.strength, self.perception, self.endurance)
+        self.energy_weapons = calc_skills.calculate_energy_weapons(self.perception, self.intelligence)
+        self.unarmed = calc_skills.calculate_unarmed(self.agility, self.strength)
+        self.melee_weapons = calc_skills.calculate_unarmed(self.agility, self.strength)
+        self.throwing = calc_skills.calculate_throwing(self.agility)
+        self.explosives = calc_skills.calculate_explosives(self.perception, self.luck)
+        self.doctor = calc_skills.calculate_doctor(self.perception, self.endurance)
+        self.sneak = calc_skills.calculate_sneak(self.agility)
+        self.lockpick = calc_skills.calculate_lockpick(self.perception, self.agility)
+        self.traps = calc_skills.caclulate_traps(self.perception, self.agility)
+        self.science = calc_skills.calculate_science(self.intelligence)
+        self.repair = calc_skills.calculate_repair(self.intelligence)
+        self.pilot = calc_skills.calculate_pilot(self.agility, self.perception)
+        self.speech = calc_skills.caclulate_speech(self.charisma)
+        self.barter = calc_skills.calculate_barter(self.charisma)
+        self.gambling = calc_skills.calculate_gambling(self.perception, self.luck)
+        self.survival = calc_skills.calculate_survival(self.endurance, self.intelligence)
 
     def calculate_base_hit_points(self):
         return 15 + self.strength + 2 * self.endurance

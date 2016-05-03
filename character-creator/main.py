@@ -3,13 +3,13 @@ import sys
 from PyQt5 import QtWidgets
 
 import character
-import mainView
+import main_view
 import about_dialogue
 
 __author__ = "Johannes Hackbarth"
 
 
-class CharacterCreator(QtWidgets.QMainWindow, mainView.Ui_MainWindow):
+class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
 
     # TODO: Read existing characters from file
     def __init__(self, parent=None):
