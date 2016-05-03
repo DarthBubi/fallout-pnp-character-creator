@@ -11,6 +11,7 @@ __author__ = "Johannes Hackbarth"
 
 class CharacterCreator(QtWidgets.QMainWindow, mainView.Ui_MainWindow):
 
+    # TODO: Read existing characters from file
     def __init__(self, parent=None):
         self.foo = character.DogCharacter()
         self.foo.name = "Foo"
@@ -33,6 +34,7 @@ class CharacterCreator(QtWidgets.QMainWindow, mainView.Ui_MainWindow):
         self.characterListWidget.currentItemChanged.connect(self.show_skills)
         self.list_characters()
 
+    # TODO: Implement character generation dialogue
     def new_character(self):
         pass
 
@@ -95,6 +97,7 @@ class CharacterCreator(QtWidgets.QMainWindow, mainView.Ui_MainWindow):
         self.gamblingBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).gambling)
         self.survivalBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).survival)
 
+    # TODO: Remove dummy function
     def new_character_dummy(self):
         dummy_char = character.HumanCharacter()
         dummy_char.name = "Dummy Char"
@@ -103,6 +106,7 @@ class CharacterCreator(QtWidgets.QMainWindow, mainView.Ui_MainWindow):
         self.character_dict.update({dummy_item.text(): dummy_char})
         self.characterListWidget.addItem(dummy_item)
 
+    # TODO: Read single character from file and add to character database
     def file_open(self):
         name = QtWidgets.QFileDialog.getOpenFileName(self, 'Open File')
         # with open(name, 'r') as file:
