@@ -4,6 +4,7 @@ from PyQt5 import QtWidgets
 
 import character
 import mainView
+import about_dialogue
 
 __author__ = "Johannes Hackbarth"
 
@@ -113,9 +114,18 @@ class CharacterCreator(QtWidgets.QMainWindow, mainView.Ui_MainWindow):
         if choice == QtWidgets.QMessageBox.Yes:
             sys.exit()
 
-    def about(self):
-        QtWidgets.QMessageBox.about(self, 'About Character Creator',
-                                    "This version 0.1.0 of the Fallout PnP Character Creator")
+    @staticmethod
+    def about():
+        dialogue = AboutDialogue()
+        dialogue.exec_()
+
+
+class AboutDialogue(QtWidgets.QDialog, about_dialogue.Ui_Dialog):
+
+    def __init__(self, parent=None):
+        super(AboutDialogue, self).__init__(parent)
+        self.setupUi(self)
+        self.closeButton.clicked.connect(self.close)
 
 
 def main():
