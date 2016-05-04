@@ -64,6 +64,9 @@ target/
 #Ipython Notebook
 .ipynb_checkpoints
 
+# Serialized Objects
+*.pickle
+
 # PyCharm
 .idea/
 
