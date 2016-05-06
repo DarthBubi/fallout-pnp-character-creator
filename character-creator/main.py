@@ -116,7 +116,7 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         choice = QtWidgets.QMessageBox.question(self, 'Quit Application', "Do you want to quit the application?",
                                                 QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
         if choice == QtWidgets.QMessageBox.Yes:
-            event.accecpt()
+            event.accept()
         else:
             event.ignore()
 
