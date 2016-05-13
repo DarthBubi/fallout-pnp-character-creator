@@ -1,6 +1,7 @@
 import sys
 
 from PyQt5 import QtWidgets
+import pickle
 
 import character
 import main_view
@@ -29,6 +30,7 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         self.aboutAction.triggered.connect(self.about)
         self.openCharacterAction.triggered.connect(self.file_open)
         self.newCharacterAction.triggered.connect(self.new_character_dummy)
+        self.saveCharacterAction.triggered.connect(self.save_characters_to_file)
         self.characterListWidget.currentItemChanged.connect(self.show_attributes)
         self.characterListWidget.currentItemChanged.connect(self.show_general)
         self.characterListWidget.currentItemChanged.connect(self.show_skills)
@@ -106,11 +108,19 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         self.character_dict.update({dummy_item.text(): dummy_char})
         self.characterListWidget.addItem(dummy_item)
 
+    def save_characters_to_file(self):
+        with open('characters.pickle', 'wb') as file:
+            pickle.dump(self.character_dict, file)
+
     # TODO: Read single character from file and add to character database
     def file_open(self):
-        name = QtWidgets.QFileDialog.getOpenFileName(self, 'Open File')
-        # with open(name, 'r') as file:
-        #     contents = file.read()
+        name = QtWidgets.QFileDialog.getOpenFileName(self, 'Open File', ".", "*.pickle")
+        with open(name[0], 'rb') as file:
+            self.characterListWidget.blockSignals(True)
+            self.characterListWidget.clear()
+            self.characterListWidget.blockSignals(False)
+            self.character_dict = pickle.load(file)
+            self.list_characters()
 
     def closeEvent(self, event):
         choice = QtWidgets.QMessageBox.question(self, 'Quit Application', "Do you want to quit the application?",
