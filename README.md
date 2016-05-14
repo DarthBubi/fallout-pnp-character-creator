@@ -3,8 +3,8 @@ A tool to create and edit fallout pen and paper characters.
 
 ## Prerequisites
 
-This application requires `python3` in this case 3.4 because `pyqt` 
-depends on this. You need the following packages to run the application:
+This application requires `python3`. You need the following packages to
+run the application:
 
 ```
 pyqt5
@@ -14,9 +14,12 @@ pyqt5
 
 For using the provided icon pack, you must run first:
 
-``pyrcc5 -o ./character-creator/oxygen_rc.py 
-./character-creator/resources/icons/oxygen.qrc``
+```
+git submodule init
+git submodule update
+pyrcc5 -o ./character-creator/oxygen_rc.py ./character-creator/resources/icons/oxygen.qrc
+```
 
-Then you can start the application with:
+Then you can run the application with:
 
 ``python3 main.py``
