@@ -3,11 +3,15 @@ A tool to create and edit fallout pen and paper characters.
 
 ## Prerequisites
 
-This application requires `python3`. You need the following packages to
-run the application:
+This application requires `python3`. On Debian/Ubuntu based
+distribution you need the following packages to run the application:
+
 
 ```
-pyqt5
+pyqt5-dev
+pyqt5-dev-tools
+python3-pyqt5
+
 ```
 
 ## Setup
