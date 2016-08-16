@@ -141,7 +141,7 @@ class AboutDialogue(QtWidgets.QDialog, about_dialogue.Ui_Dialog):
     def __init__(self, parent=None):
         super(AboutDialogue, self).__init__(parent)
         self.setupUi(self)
-        self.closeButton.clicked.connect(self.close)
+        self.buttonBox.clicked.connect(self.close)
 
 
 def main():
