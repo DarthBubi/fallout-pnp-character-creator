@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file '.\ui\mainView.ui'
+# Form implementation generated from reading ui file 'ui/main_view.ui'
 #
-# Created by: PyQt5 UI code generator 5.5.1
+# Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -47,6 +47,7 @@ class Ui_MainWindow(object):
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
         self.gridLayout_5 = QtWidgets.QGridLayout(self.tab)
+        self.gridLayout_5.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_5.setObjectName("gridLayout_5")
         self.gridLayout_3 = QtWidgets.QGridLayout()
         self.gridLayout_3.setObjectName("gridLayout_3")
@@ -120,9 +121,10 @@ class Ui_MainWindow(object):
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
         self.gridLayoutWidget = QtWidgets.QWidget(self.tab_2)
-        self.gridLayoutWidget.setGeometry(QtCore.QRect(10, 10, 131, 198))
+        self.gridLayoutWidget.setGeometry(QtCore.QRect(10, 10, 131, 199))
         self.gridLayoutWidget.setObjectName("gridLayoutWidget")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.gridLayoutWidget)
+        self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_2.setObjectName("gridLayout_2")
         self.label = QtWidgets.QLabel(self.gridLayoutWidget)
         self.label.setObjectName("label")
@@ -173,6 +175,7 @@ class Ui_MainWindow(object):
         self.gridLayoutWidget_3.setGeometry(QtCore.QRect(9, 9, 311, 561))
         self.gridLayoutWidget_3.setObjectName("gridLayoutWidget_3")
         self.gridLayout_4 = QtWidgets.QGridLayout(self.gridLayoutWidget_3)
+        self.gridLayout_4.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_4.setObjectName("gridLayout_4")
         self.label_28 = QtWidgets.QLabel(self.gridLayoutWidget_3)
         self.label_28.setObjectName("label_28")
@@ -286,7 +289,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.splitter, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1024, 26))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1024, 19))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -303,7 +306,7 @@ class Ui_MainWindow(object):
         self.quitAction.setObjectName("quitAction")
         self.saveCharacterAction = QtWidgets.QAction(MainWindow)
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap(":/themes/oxygen/32x32/actions/document-save.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
+        icon.addPixmap(QtGui.QPixmap(":/themes/oxygen/22x22/actions/document-save.png"), QtGui.QIcon.Normal, QtGui.QIcon.On)
         self.saveCharacterAction.setIcon(icon)
         self.saveCharacterAction.setObjectName("saveCharacterAction")
         self.newCharacterAction = QtWidgets.QAction(MainWindow)
@@ -315,9 +318,19 @@ class Ui_MainWindow(object):
         self.aboutAction.setObjectName("aboutAction")
         self.openCharacterAction = QtWidgets.QAction(MainWindow)
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap(":/themes/oxygen/32x32/actions/document-open.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap(":/themes/oxygen/22x22/actions/document-open.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.openCharacterAction.setIcon(icon2)
         self.openCharacterAction.setObjectName("openCharacterAction")
+        self.exportCharacterAction = QtWidgets.QAction(MainWindow)
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(":/themes/oxygen/22x22/actions/document-export.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.exportCharacterAction.setIcon(icon3)
+        self.exportCharacterAction.setObjectName("exportCharacterAction")
+        self.importCharacterAction = QtWidgets.QAction(MainWindow)
+        icon4 = QtGui.QIcon()
+        icon4.addPixmap(QtGui.QPixmap(":/themes/oxygen/22x22/actions/document-import.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.importCharacterAction.setIcon(icon4)
+        self.importCharacterAction.setObjectName("importCharacterAction")
         self.menuFile.addAction(self.quitAction)
         self.menuHelp.addAction(self.aboutAction)
         self.menubar.addAction(self.menuFile.menuAction())
@@ -325,6 +338,8 @@ class Ui_MainWindow(object):
         self.toolBar.addAction(self.newCharacterAction)
         self.toolBar.addAction(self.saveCharacterAction)
         self.toolBar.addAction(self.openCharacterAction)
+        self.toolBar.addAction(self.exportCharacterAction)
+        self.toolBar.addAction(self.importCharacterAction)
 
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
@@ -370,10 +385,10 @@ class Ui_MainWindow(object):
         self.label_21.setText(_translate("MainWindow", "Melee Weapons"))
         self.label_34.setText(_translate("MainWindow", "Survival"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "Skills"))
-        self.menuFile.setTitle(_translate("MainWindow", "File"))
+        self.menuFile.setTitle(_translate("MainWindow", "Fi&le"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
         self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar"))
-        self.quitAction.setText(_translate("MainWindow", "Quit"))
+        self.quitAction.setText(_translate("MainWindow", "&Quit"))
         self.quitAction.setShortcut(_translate("MainWindow", "Ctrl+Q"))
         self.saveCharacterAction.setText(_translate("MainWindow", "Save"))
         self.saveCharacterAction.setToolTip(_translate("MainWindow", "Save Character"))
@@ -381,9 +396,15 @@ class Ui_MainWindow(object):
         self.newCharacterAction.setText(_translate("MainWindow", "New"))
         self.newCharacterAction.setToolTip(_translate("MainWindow", "New Character"))
         self.newCharacterAction.setShortcut(_translate("MainWindow", "Ctrl+N"))
-        self.aboutAction.setText(_translate("MainWindow", "About"))
+        self.aboutAction.setText(_translate("MainWindow", "&About"))
         self.openCharacterAction.setText(_translate("MainWindow", "openCharacter"))
         self.openCharacterAction.setToolTip(_translate("MainWindow", "Open"))
         self.openCharacterAction.setShortcut(_translate("MainWindow", "Ctrl+O"))
+        self.exportCharacterAction.setText(_translate("MainWindow", "exportCharacter"))
+        self.exportCharacterAction.setToolTip(_translate("MainWindow", "Export the current character"))
+        self.exportCharacterAction.setShortcut(_translate("MainWindow", "Ctrl+E"))
+        self.importCharacterAction.setText(_translate("MainWindow", "importCharacter"))
+        self.importCharacterAction.setToolTip(_translate("MainWindow", "Import a character"))
+        self.importCharacterAction.setShortcut(_translate("MainWindow", "Ctrl+I"))
 
 import oxygen_rc

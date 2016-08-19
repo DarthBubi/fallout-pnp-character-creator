@@ -31,6 +31,8 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         self.openCharacterAction.triggered.connect(self.file_open)
         self.newCharacterAction.triggered.connect(self.new_character_dummy)
         self.saveCharacterAction.triggered.connect(self.save_characters_to_file)
+        self.importCharacterAction.triggered.connect(self.import_character)
+        self.exportCharacterAction.triggered.connect(self.export_character)
         self.characterListWidget.currentItemChanged.connect(self.show_attributes)
         self.characterListWidget.currentItemChanged.connect(self.show_general)
         self.characterListWidget.currentItemChanged.connect(self.show_skills)
@@ -107,6 +109,23 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         dummy_item = QtWidgets.QListWidgetItem(dummy_char.name)
         self.character_dict.update({dummy_item.text(): dummy_char})
         self.characterListWidget.addItem(dummy_item)
+
+    def export_character(self):
+        character = self.character_dict.get(self.characterListWidget.currentItem().text())
+        filename = character.name.replace(" ", "").lower() + ".fcf"
+        with open(filename, 'wb') as file:
+            pickle.dump(character, file)
+
+    def import_character(self):
+        name = QtWidgets.QFileDialog.getOpenFileName(self, 'Open File', ".", "*.fcf")
+        if name[0] != "":
+            with open(name[0], 'rb') as file:
+                character = pickle.load(file)
+                self.character_dict[character.name] = character
+                self.characterListWidget.blockSignals(True)
+                self.characterListWidget.clear()
+                self.characterListWidget.blockSignals(False)
+                self.list_characters()
 
     def save_characters_to_file(self):
         with open('characters.pickle', 'wb') as file:
