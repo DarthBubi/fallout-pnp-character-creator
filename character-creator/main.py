@@ -115,12 +115,15 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
     # TODO: Read single character from file and add to character database
     def file_open(self):
         name = QtWidgets.QFileDialog.getOpenFileName(self, 'Open File', ".", "*.pickle")
-        with open(name[0], 'rb') as file:
-            self.characterListWidget.blockSignals(True)
-            self.characterListWidget.clear()
-            self.characterListWidget.blockSignals(False)
-            self.character_dict = pickle.load(file)
-            self.list_characters()
+        try:
+            with open(name[0], 'rb') as file:
+                self.characterListWidget.blockSignals(True)
+                self.characterListWidget.clear()
+                self.characterListWidget.blockSignals(False)
+                self.character_dict = pickle.load(file)
+                self.list_characters()
+        except IOError:
+            pass
 
     def closeEvent(self, event):
         choice = QtWidgets.QMessageBox.question(self, 'Quit Application', "Do you want to quit the application?",
