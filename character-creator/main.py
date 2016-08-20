@@ -10,6 +10,7 @@ import main_view
 import about_dialogue
 import new_character_dialogue
 import import_dialogue
+import config
 
 __author__ = "Johannes Hackbarth"
 
@@ -272,6 +273,9 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
         self.gamblingTag.clicked.connect(lambda: self.handle_skill_tag_change(self.gamblingLabel.text()))
         self.survivalTag.clicked.connect(lambda: self.handle_skill_tag_change(self.survivalLabel.text()))
 
+        self.traitListWidget.currentItemChanged.connect(self.show_trait_description)
+        self.traitListWidget.itemChanged.connect(self.handle_trait_check)
+
         self.nextButton = QtWidgets.QPushButton("Next")
         self.nextButton.clicked.connect(self.next_page)
         self.backButton = QtWidgets.QPushButton("Back")
@@ -296,6 +300,7 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
         self.available_skill_points = 5
         self.availablePointsBox.setText(self.available_skill_points.__str__())
         self.set_skill_values()
+        self.list_traits()
 
     def handle_attribute_value_change(self, attribute):
         if attribute == self.strengthLabel.text() and self.available_skill_points >= 0:
@@ -613,6 +618,46 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
         self.barterBox.setValue(self.character.barter)
         self.gamblingBox.setValue(self.character.gambling)
         self.survivalBox.setValue(self.character.survival)
+
+    def list_traits(self):
+        self.traitListWidget.clear()
+        for trait in config.TRAIT_LIST:
+            if self.character.__str__() in trait.races:
+                item = QtWidgets.QListWidgetItem(trait.name)
+                item.setFlags(item.flags() | QtCore.Qt.ItemIsUserCheckable)
+                item.setCheckState(QtCore.Qt.Unchecked)
+                self.traitListWidget.addItem(item)
+
+    def show_trait_description(self):
+        for trait in config.TRAIT_LIST:
+            if trait.name == self.traitListWidget.currentItem().text():
+                self.descriptionBox.setText(trait.effect)
+                break
+
+    # TODO: Fix nasty uncheck bug
+    def handle_trait_check(self):
+        i = 0
+        while self.traitListWidget.item(i):
+            if not self.traitListWidget.item(i).checkState():
+                for trait in config.TRAIT_LIST:
+                    if self.traitListWidget.item(i).text() == trait.name and self.character.traits.__contains__(trait):
+                        self.character.remove_trait(trait)
+                        print(self.character.traits)
+                        print(self.character.traits.__len__())
+                        break
+            elif self.traitListWidget.item(i).checkState() and self.character.traits.__len__() < 2:
+                for trait in config.TRAIT_LIST:
+                    if self.traitListWidget.item(i).text() == trait.name:
+                        self.character.add_trait(trait)
+                        print(self.character.traits)
+                        print(self.character.traits.__len__())
+                        break
+            elif self.traitListWidget.item(i).checkState() and self.character.traits.__len__() == 2:
+                for trait in config.TRAIT_LIST:
+                    if not self.character.traits.__contains__(trait):
+                        self.traitListWidget.item(i).setCheckState(QtCore.Qt.Unchecked)
+
+            i += 1
 
     def validate_fields(self):
         return self.nameField.text() and self.ageField.text() and self.eyesField.text() and self.hairField.text() and \

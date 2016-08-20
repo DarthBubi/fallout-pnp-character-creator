@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui/new_character_dialogue.ui'
 #
-# Created: Sat Aug 20 17:34:16 2016
+# Created: Sat Aug 20 21:51:46 2016
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -154,7 +154,7 @@ class Ui_Dialog(object):
         self.page_3 = QtWidgets.QWidget()
         self.page_3.setObjectName("page_3")
         self.gridLayoutWidget_3 = QtWidgets.QWidget(self.page_3)
-        self.gridLayoutWidget_3.setGeometry(QtCore.QRect(10, 10, 191, 561))
+        self.gridLayoutWidget_3.setGeometry(QtCore.QRect(10, 10, 187, 554))
         self.gridLayoutWidget_3.setObjectName("gridLayoutWidget_3")
         self.gridLayout_5 = QtWidgets.QGridLayout(self.gridLayoutWidget_3)
         self.gridLayout_5.setContentsMargins(0, 0, 0, 0)
@@ -340,10 +340,41 @@ class Ui_Dialog(object):
         self.survivalTag.setObjectName("survivalTag")
         self.gridLayout_5.addWidget(self.survivalTag, 17, 2, 1, 1)
         self.stackedWidget.addWidget(self.page_3)
-        self.gridLayout.addWidget(self.stackedWidget, 1, 0, 1, 1)
+        self.page_4 = QtWidgets.QWidget()
+        self.page_4.setObjectName("page_4")
+        self.gridLayout_8 = QtWidgets.QGridLayout(self.page_4)
+        self.gridLayout_8.setObjectName("gridLayout_8")
+        self.splitter = QtWidgets.QSplitter(self.page_4)
+        self.splitter.setOrientation(QtCore.Qt.Horizontal)
+        self.splitter.setObjectName("splitter")
+        self.groupBox_2 = QtWidgets.QGroupBox(self.splitter)
+        self.groupBox_2.setObjectName("groupBox_2")
+        self.gridLayout_7 = QtWidgets.QGridLayout(self.groupBox_2)
+        self.gridLayout_7.setObjectName("gridLayout_7")
+        self.traitListWidget = QtWidgets.QListWidget(self.groupBox_2)
+        self.traitListWidget.setObjectName("traitListWidget")
+        self.gridLayout_7.addWidget(self.traitListWidget, 0, 0, 1, 1)
+        self.groupBox = QtWidgets.QGroupBox(self.splitter)
+        self.groupBox.setAutoFillBackground(False)
+        self.groupBox.setFlat(False)
+        self.groupBox.setCheckable(False)
+        self.groupBox.setObjectName("groupBox")
+        self.gridLayout_6 = QtWidgets.QGridLayout(self.groupBox)
+        self.gridLayout_6.setObjectName("gridLayout_6")
+        self.label_10 = QtWidgets.QLabel(self.groupBox)
+        self.label_10.setObjectName("label_10")
+        self.gridLayout_6.addWidget(self.label_10, 0, 0, 1, 1)
+        self.descriptionBox = QtWidgets.QTextBrowser(self.groupBox)
+        self.descriptionBox.setObjectName("descriptionBox")
+        self.gridLayout_6.addWidget(self.descriptionBox, 1, 0, 1, 1)
+        spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_6.addItem(spacerItem, 2, 0, 1, 1)
+        self.gridLayout_8.addWidget(self.splitter, 0, 0, 1, 1)
+        self.stackedWidget.addWidget(self.page_4)
+        self.gridLayout.addWidget(self.stackedWidget, 0, 0, 1, 1)
 
         self.retranslateUi(Dialog)
-        self.stackedWidget.setCurrentIndex(2)
+        self.stackedWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
@@ -391,4 +422,8 @@ class Ui_Dialog(object):
         self.survivalLabel.setText(_translate("Dialog", "Survival"))
         self.doctorLabel.setText(_translate("Dialog", "Doctor"))
         self.scienceLabel.setText(_translate("Dialog", "Science"))
+        self.groupBox_2.setTitle(_translate("Dialog", "Available Traits"))
+        self.traitListWidget.setSortingEnabled(True)
+        self.groupBox.setTitle(_translate("Dialog", "Description"))
+        self.label_10.setText(_translate("Dialog", "Available for:"))
 
