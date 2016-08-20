@@ -208,13 +208,12 @@ class ImportFromDatabase(QtWidgets.QDialog, import_dialogue.Ui_Dialog):
 
 # TODO: Add traits and items to character generation
 class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
-
     def __init__(self, parent=None):
         super(NewCharacterDialogue, self).__init__(parent)
         self.setupUi(self)
 
         self.available_skill_points = 5  # magic number
-        self.tagged_skills = ([], 0)
+        self.tagged_skills = []
 
         self.sexPicker.clear()
         self.sexPicker.addItems(["male", "female"])
@@ -234,24 +233,24 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
         self.agilityBox.valueChanged.connect(lambda: self.handle_attribute_value_change(self.agilityLabel.text()))
         self.luckBox.valueChanged.connect(lambda: self.handle_attribute_value_change(self.luckLabel.text()))
 
-        self.smallGunsTag.clicked.connect(self.handle_strength_tag)
-        self.bigGunsTag.clicked.connect(self.handle_skill_tags)
-        self.energyWeaponsTag.clicked.connect(self.handle_skill_tags)
-        self.unarmedTag.clicked.connect(self.handle_skill_tags)
-        self.meleeWeaponsTag.clicked.connect(self.handle_skill_tags)
-        self.throwingTag.clicked.connect(self.handle_skill_tags)
-        self.explosivesTag.clicked.connect(self.handle_skill_tags)
-        self.doctorTag.clicked.connect(self.handle_skill_tags)
-        self.sneakTag.clicked.connect(self.handle_skill_tags)
-        self.lockpickTag.clicked.connect(self.handle_skill_tags)
-        self.trapsTag.clicked.connect(self.handle_skill_tags)
-        self.scienceTag.clicked.connect(self.handle_skill_tags)
-        self.repairTag.clicked.connect(self.handle_skill_tags)
-        self.pilotTag.clicked.connect(self.handle_skill_tags)
-        self.speechTag.clicked.connect(self.handle_skill_tags)
-        self.barterTag.clicked.connect(self.handle_skill_tags)
-        self.gamblingTag.clicked.connect(self.handle_skill_tags)
-        self.survivalTag.clicked.connect(self.handle_skill_tags)
+        self.smallGunsTag.clicked.connect(lambda: self.handle_skill_tag_change(self.smallGunsLabel.text()))
+        self.bigGunsTag.clicked.connect(lambda: self.handle_skill_tag_change(self.bigGunsLabel.text()))
+        self.energyWeaponsTag.clicked.connect(lambda: self.handle_skill_tag_change(self.energyWeaponsLabel.text()))
+        self.unarmedTag.clicked.connect(lambda: self.handle_skill_tag_change(self.unarmedLabel.text()))
+        self.meleeWeaponsTag.clicked.connect(lambda: self.handle_skill_tag_change(self.meleeWeaponsLabel.text()))
+        self.throwingTag.clicked.connect(lambda: self.handle_skill_tag_change(self.throwingLabel.text()))
+        self.explosivesTag.clicked.connect(lambda: self.handle_skill_tag_change(self.explosivesLabel.text()))
+        self.doctorTag.clicked.connect(lambda: self.handle_skill_tag_change(self.doctorLabel.text()))
+        self.sneakTag.clicked.connect(lambda: self.handle_skill_tag_change(self.sneakLabel.text()))
+        self.lockpickTag.clicked.connect(lambda: self.handle_skill_tag_change(self.lockpickLabel.text()))
+        self.trapsTag.clicked.connect(lambda: self.handle_skill_tag_change(self.trapsLabel.text()))
+        self.scienceTag.clicked.connect(lambda: self.handle_skill_tag_change(self.scienceLabel.text()))
+        self.repairTag.clicked.connect(lambda: self.handle_skill_tag_change(self.repairLabel.text()))
+        self.pilotTag.clicked.connect(lambda: self.handle_skill_tag_change(self.pilotLabel.text()))
+        self.speechTag.clicked.connect(lambda: self.handle_skill_tag_change(self.speechLabel.text()))
+        self.barterTag.clicked.connect(lambda: self.handle_skill_tag_change(self.barterLabel.text()))
+        self.gamblingTag.clicked.connect(lambda: self.handle_skill_tag_change(self.gamblingLabel.text()))
+        self.survivalTag.clicked.connect(lambda: self.handle_skill_tag_change(self.survivalLabel.text()))
 
         self.nextButton = QtWidgets.QPushButton("Next")
         self.nextButton.clicked.connect(self.next_page)
@@ -344,20 +343,169 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
 
         self.availablePointsBox.setText(str(self.available_skill_points))
 
+    # TODO: Make all not checked tags uncheckable if limit is reached
     def handle_skill_tag_change(self, skill):
-        pass
-
-    def handle_strength_tag(self):
-        if self.smallGunsTag.isChecked() and self.tagged_skills[1] < 3:
+        if skill == self.smallGunsLabel.text() and self.smallGunsTag.isChecked() and self.tagged_skills.__len__() < 3:
             self.character.small_guns += 20
             self.smallGunsBox.setValue(self.character.small_guns)
-        elif self.tagged_skills[0].__contains__("small_guns"):
+            self.tagged_skills.append(skill)
+        elif skill == self.smallGunsLabel.text() and self.tagged_skills.__contains__(skill):
             self.character.small_guns -= 20
             self.smallGunsBox.setValue(self.character.small_guns)
+            self.tagged_skills.remove(skill)
 
-    # TODO: Handle skill tagging
-    def handle_skill_tags(self):
-        pass
+        elif skill == self.bigGunsLabel.text() and self.bigGunsTag.isChecked() and self.tagged_skills.__len__() < 3:
+            self.character.big_guns += 20
+            self.bigGunsBox.setValue(self.character.big_guns)
+            self.tagged_skills.append(skill)
+        elif skill == self.bigGunsLabel.text() and self.tagged_skills.__contains__(skill):
+            self.character.big_guns -= 20
+            self.bigGunsBox.setValue(self.character.big_guns)
+            self.tagged_skills.remove(skill)
+
+        elif skill == self.energyWeaponsLabel.text() and self.energyWeaponsTag.isChecked() and self.tagged_skills.__len__() < 3:
+            self.character.energy_weapons += 20
+            self.energyWeaponsBox.setValue(self.character.energy_weapons)
+            self.tagged_skills.append(skill)
+        elif skill == self.energyWeaponsLabel.text() and self.tagged_skills.__contains__(skill):
+            self.character.energy_weapons -= 20
+            self.energyWeaponsBox.setValue(self.character.energy_weapons)
+            self.tagged_skills.remove(skill)
+
+        elif skill == self.unarmedLabel.text() and self.unarmedTag.isChecked() and self.tagged_skills.__len__() < 3:
+            self.character.unarmed += 20
+            self.unarmedBox.setValue(self.character.unarmed)
+            self.tagged_skills.append(skill)
+        elif skill == self.unarmedLabel.text() and self.tagged_skills.__contains__(skill):
+            self.character.unarmed -= 20
+            self.unarmedBox.setValue(self.character.unarmed)
+            self.tagged_skills.remove(skill)
+
+        elif skill == self.meleeWeaponsLabel.text() and self.meleeWeaponsTag.isChecked() and self.tagged_skills.__len__() < 3:
+            self.character.melee_weapons += 20
+            self.meleeWeaponsBox.setValue(self.character.melee_weapons)
+            self.tagged_skills.append(skill)
+        elif skill == self.meleeWeaponsLabel.text() and self.tagged_skills.__contains__(skill):
+            self.character.melee_weapons -= 20
+            self.meleeWeaponsBox.setValue(self.character.melee_weapons)
+            self.tagged_skills.remove(skill)
+
+        elif skill == self.throwingLabel.text() and self.throwingTag.isChecked() and self.tagged_skills.__len__() < 3:
+            self.character.throwing += 20
+            self.throwingBox.setValue(self.character.throwing)
+            self.tagged_skills.append(skill)
+        elif skill == self.throwingLabel.text() and self.tagged_skills.__contains__(skill):
+            self.character.throwing -= 20
+            self.throwingBox.setValue(self.character.throwing)
+            self.tagged_skills.remove(skill)
+
+        elif skill == self.explosivesLabel.text() and self.explosivesTag.isChecked() and self.tagged_skills.__len__() < 3:
+            self.character.explosives += 20
+            self.explosivesBox.setValue(self.character.explosives)
+            self.tagged_skills.append(skill)
+        elif skill == self.explosivesLabel.text() and self.tagged_skills.__contains__(skill):
+            self.character.explosives -= 20
+            self.explosivesBox.setValue(self.character.explosives)
+            self.tagged_skills.remove(skill)
+
+        elif skill == self.doctorLabel.text() and self.doctorTag.isChecked() and self.tagged_skills.__len__() < 3:
+            self.character.doctor += 20
+            self.doctorBox.setValue(self.character.doctor)
+            self.tagged_skills.append(skill)
+        elif skill == self.doctorLabel.text() and self.tagged_skills.__contains__(skill):
+            self.character.doctor -= 20
+            self.doctorBox.setValue(self.character.doctor)
+            self.tagged_skills.remove(skill)
+
+        elif skill == self.sneakLabel.text() and self.sneakTag.isChecked() and self.tagged_skills.__len__() < 3:
+            self.character.sneak += 20
+            self.sneakBox.setValue(self.character.sneak)
+            self.tagged_skills.append(skill)
+        elif skill == self.sneakLabel.text() and self.tagged_skills.__contains__(skill):
+            self.character.sneak -= 20
+            self.sneakBox.setValue(self.character.sneak)
+            self.tagged_skills.remove(skill)
+
+        elif skill == self.lockpickLabel.text() and self.lockpickTag.isChecked() and self.tagged_skills.__len__() < 3:
+            self.character.lockpick += 20
+            self.lockpickBox.setValue(self.character.lockpick)
+            self.tagged_skills.append(skill)
+        elif skill == self.lockpickLabel.text() and self.tagged_skills.__contains__(skill):
+            self.character.lockpick -= 20
+            self.lockpickBox.setValue(self.character.lockpick)
+            self.tagged_skills.remove(skill)
+
+        elif skill == self.trapsLabel.text() and self.trapsTag.isChecked() and self.tagged_skills.__len__() < 3:
+            self.character.traps += 20
+            self.trapsBox.setValue(self.character.traps)
+            self.tagged_skills.append(skill)
+        elif skill == self.trapsLabel.text() and self.tagged_skills.__contains__(skill):
+            self.character.traps -= 20
+            self.trapsBox.setValue(self.character.traps)
+            self.tagged_skills.remove(skill)
+
+        elif skill == self.scienceLabel.text() and self.scienceTag.isChecked() and self.tagged_skills.__len__() < 3:
+            self.character.science += 20
+            self.scienceBox.setValue(self.character.science)
+            self.tagged_skills.append(skill)
+        elif skill == self.scienceLabel.text() and self.tagged_skills.__contains__(skill):
+            self.character.science -= 20
+            self.scienceBox.setValue(self.character.science)
+            self.tagged_skills.remove(skill)
+
+        elif skill == self.repairLabel.text() and self.repairTag.isChecked() and self.tagged_skills.__len__() < 3:
+            self.character.repair += 20
+            self.repairBox.setValue(self.character.repair)
+            self.tagged_skills.append(skill)
+        elif skill == self.repairLabel.text() and self.tagged_skills.__contains__(skill):
+            self.character.repair -= 20
+            self.repairBox.setValue(self.character.repair)
+            self.tagged_skills.remove(skill)
+
+        elif skill == self.pilotLabel.text() and self.pilotTag.isChecked() and self.tagged_skills.__len__() < 3:
+            self.character.pilot += 20
+            self.pilotBox.setValue(self.character.pilot)
+            self.tagged_skills.append(skill)
+        elif skill == self.pilotLabel.text() and self.tagged_skills.__contains__(skill):
+            self.character.pilot -= 20
+            self.pilotBox.setValue(self.character.pilot)
+            self.tagged_skills.remove(skill)
+
+        elif skill == self.speechLabel.text() and self.speechTag.isChecked() and self.tagged_skills.__len__() < 3:
+            self.character.speech += 20
+            self.speechBox.setValue(self.character.speech)
+            self.tagged_skills.append(skill)
+        elif skill == self.speechLabel.text() and self.tagged_skills.__contains__(skill):
+            self.character.speech -= 20
+            self.speechBox.setValue(self.character.speech)
+            self.tagged_skills.remove(skill)
+
+        elif skill == self.barterLabel.text() and self.barterTag.isChecked() and self.tagged_skills.__len__() < 3:
+            self.character.barter += 20
+            self.barterBox.setValue(self.character.barter)
+            self.tagged_skills.append(skill)
+        elif skill == self.barterLabel.text() and self.tagged_skills.__contains__(skill):
+            self.character.barter -= 20
+            self.barterBox.setValue(self.character.barter)
+            self.tagged_skills.remove(skill)
+
+        elif skill == self.gamblingLabel.text() and self.gamblingTag.isChecked() and self.tagged_skills.__len__() < 3:
+            self.character.gambling += 20
+            self.gamblingBox.setValue(self.character.gambling)
+            self.tagged_skills.append(skill)
+        elif skill == self.gamblingLabel.text() and self.tagged_skills.__contains__(skill):
+            self.character.gambling -= 20
+            self.gamblingBox.setValue(self.character.gambling)
+            self.tagged_skills.remove(skill)
+
+        elif skill == self.survivalLabel.text() and self.survivalTag.isChecked() and self.tagged_skills.__len__() < 3:
+            self.character.survival += 20
+            self.survivalBox.setValue(self.character.survival)
+            self.tagged_skills.append(skill)
+        elif skill == self.survivalLabel.text() and self.tagged_skills.__contains__(skill):
+            self.character.survival -= 20
+            self.survivalBox.setValue(self.character.survival)
+            self.tagged_skills.remove(skill)
 
     def next_page(self):
         if self.stackedWidget.currentIndex() < self.stackedWidget.count():

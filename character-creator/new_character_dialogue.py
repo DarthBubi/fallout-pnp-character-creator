@@ -2,7 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui/new_character_dialogue.ui'
 #
-# Created: Sat Aug 20 16:33:31 2016
+# Created: Sat Aug 20 17:34:16 2016
 #      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
@@ -180,9 +180,9 @@ class Ui_Dialog(object):
         self.repairLabel = QtWidgets.QLabel(self.gridLayoutWidget_3)
         self.repairLabel.setObjectName("repairLabel")
         self.gridLayout_5.addWidget(self.repairLabel, 12, 0, 1, 1)
-        self.throwingWeaponsLabel = QtWidgets.QLabel(self.gridLayoutWidget_3)
-        self.throwingWeaponsLabel.setObjectName("throwingWeaponsLabel")
-        self.gridLayout_5.addWidget(self.throwingWeaponsLabel, 5, 0, 1, 1)
+        self.throwingLabel = QtWidgets.QLabel(self.gridLayoutWidget_3)
+        self.throwingLabel.setObjectName("throwingLabel")
+        self.gridLayout_5.addWidget(self.throwingLabel, 5, 0, 1, 1)
         self.pilotLabel = QtWidgets.QLabel(self.gridLayoutWidget_3)
         self.pilotLabel.setObjectName("pilotLabel")
         self.gridLayout_5.addWidget(self.pilotLabel, 13, 0, 1, 1)
@@ -343,7 +343,7 @@ class Ui_Dialog(object):
         self.gridLayout.addWidget(self.stackedWidget, 1, 0, 1, 1)
 
         self.retranslateUi(Dialog)
-        self.stackedWidget.setCurrentIndex(1)
+        self.stackedWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(Dialog)
 
     def retranslateUi(self, Dialog):
@@ -376,7 +376,7 @@ class Ui_Dialog(object):
         self.speechLabel.setText(_translate("Dialog", "Speech"))
         self.unarmedLabel.setText(_translate("Dialog", "Unarmed"))
         self.repairLabel.setText(_translate("Dialog", "Repair"))
-        self.throwingWeaponsLabel.setText(_translate("Dialog", "Throwing"))
+        self.throwingLabel.setText(_translate("Dialog", "Throwing"))
         self.pilotLabel.setText(_translate("Dialog", "Pilot"))
         self.gamblingLabel.setText(_translate("Dialog", "Gambling"))
         self.smallGunsLabel.setText(_translate("Dialog", "Small Guns"))
