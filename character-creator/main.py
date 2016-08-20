@@ -117,6 +117,7 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         filename = character.name.replace(" ", "").lower() + ".fcf"
         with open(filename, 'wb') as file:
             pickle.dump(character, file)
+        self.statusBar().showMessage("Export erfolgreich", 1000)
 
     def import_character(self):
         name = QtWidgets.QFileDialog.getOpenFileName(self, 'Open File', ".", "*.fcf")
@@ -128,10 +129,12 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
                 self.characterListWidget.clear()
                 self.characterListWidget.blockSignals(False)
                 self.list_characters()
+        self.statusBar().showMessage("Import erfolgreich", 1000)
 
     def save_characters_to_file(self):
         with open('characters.pickle', 'wb') as file:
             pickle.dump(self.character_dict, file)
+        self.statusBar().showMessage("Speichern erfolgreich", 1000)
 
     # TODO: Read single character from file and add to character database
     def file_open(self):
