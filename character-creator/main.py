@@ -184,13 +184,13 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
         self.handle_race_change()
         self.availablePointsBox.setText(str(self.available_skill_points))
 
-        self.strengthSpinBox.valueChanged.connect(self.handle_attribute_value_change)
-        self.perceptionBox.valueChanged.connect(self.handle_attribute_value_change)
-        self.enduranceBox.valueChanged.connect(self.handle_attribute_value_change)
-        self.charismaBox.valueChanged.connect(self.handle_attribute_value_change)
-        self.intelligenceBox.valueChanged.connect(self.handle_attribute_value_change)
-        self.agilityBox.valueChanged.connect(self.handle_attribute_value_change)
-        self.luckBox.valueChanged.connect(self.handle_attribute_value_change)
+        self.strengthSpinBox.valueChanged.connect(lambda: self.handle_attribute_value_change(self.strengthLabel.text()))
+        self.perceptionBox.valueChanged.connect(lambda: self.handle_attribute_value_change(self.perceptionLabel.text()))
+        self.enduranceBox.valueChanged.connect(lambda: self.handle_attribute_value_change(self.enduranceLabel.text()))
+        self.charismaBox.valueChanged.connect(lambda: self.handle_attribute_value_change(self.charismaLabel.text()))
+        self.intelligenceBox.valueChanged.connect(lambda: self.handle_attribute_value_change(self.intelligenceLabel.text()))
+        self.agilityBox.valueChanged.connect(lambda: self.handle_attribute_value_change(self.agilityLabel.text()))
+        self.luckBox.valueChanged.connect(lambda: self.handle_attribute_value_change(self.luckLabel.text()))
 
         self.smallGunsTag.clicked.connect(self.handle_strength_tag)
         self.bigGunsTag.clicked.connect(self.handle_skill_tags)
@@ -236,112 +236,75 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
         self.availablePointsBox.setText(self.available_skill_points.__str__())
         self.set_skill_values()
 
-    def handle_attribute_value_change(self):
-        if self.available_skill_points > 0:
-            if self.character.strength != self.strengthSpinBox.value():
-                if self.character.strength > self.strengthSpinBox.value():
-                    self.available_skill_points += 1
-                else:
-                    self.available_skill_points -= 1
-                self.character.strength = self.strengthSpinBox.value()
+    def handle_attribute_value_change(self, attribute):
+        if attribute == self.strengthLabel.text() and self.available_skill_points >= 0:
+            if self.character.strength > self.strengthSpinBox.value():
+                self.available_skill_points += 1
+            elif self.character.strength < self.strengthSpinBox.value() and self.available_skill_points > 0:
+                self.available_skill_points -= 1
+            else:
+                self.strengthSpinBox.setValue(self.character.strength)
+            self.character.strength = self.strengthSpinBox.value()
 
-            elif self.character.perception != self.perceptionBox.value():
-                if self.character.perception > self.perceptionBox.value():
-                    self.available_skill_points += 1
-                else:
-                    self.available_skill_points -= 1
-                self.character.perception = self.perceptionBox.value()
+        elif attribute == self.perceptionLabel.text() and self.available_skill_points >= 0:
+            if self.character.perception > self.perceptionBox.value():
+                self.available_skill_points += 1
+            elif self.character.perception < self.perceptionBox.value() and self.available_skill_points > 0:
+                self.available_skill_points -= 1
+            else:
+                self.perceptionBox.setValue(self.character.perception)
+            self.character.perception = self.perceptionBox.value()
 
-            elif self.character.endurance != self.enduranceBox.value():
-                if self.character.endurance > self.enduranceBox.value():
-                    self.available_skill_points += 1
-                else:
-                    self.available_skill_points -= 1
-                self.character.endurance = self.enduranceBox.value()
+        elif attribute == self.enduranceLabel.text() and self.available_skill_points >= 0:
+            if self.character.endurance > self.enduranceBox.value():
+                self.available_skill_points += 1
+            elif self.character.endurance < self.enduranceBox.value() and self.available_skill_points > 0:
+                self.available_skill_points -= 1
+            else:
+                self.enduranceBox.setValue(self.character.endurance)
+            self.character.endurance = self.enduranceBox.value()
 
-            elif self.character.charisma != self.charismaBox.value():
-                if self.character.charisma > self.charismaBox.value():
-                    self.available_skill_points += 1
-                else:
-                    self.available_skill_points -= 1
-                self.character.charisma = self.charismaBox.value()
+        elif attribute == self.charismaLabel.text() and self.available_skill_points >= 0:
+            if self.character.charisma > self.charismaBox.value():
+                self.available_skill_points += 1
+            elif self.character.charisma < self.charismaBox.value() and self.available_skill_points > 0:
+                self.available_skill_points -= 1
+            else:
+                self.charismaBox.setValue(self.character.charisma)
+            self.character.charisma = self.charismaBox.value()
 
-            elif self.character.intelligence != self.intelligenceBox.value():
-                if self.character.intelligence > self.intelligenceBox.value():
-                    self.available_skill_points += 1
-                else:
-                    self.available_skill_points -= 1
-                self.character.intelligence = self.intelligenceBox.value()
+        elif attribute == self.intelligenceLabel.text() and self.available_skill_points >= 0:
+            if self.character.intelligence > self.intelligenceBox.value():
+                self.available_skill_points += 1
+            elif self.character.intelligence < self.intelligenceBox.value() and self.available_skill_points > 0:
+                self.available_skill_points -= 1
+            else:
+                self.intelligenceBox.setValue(self.character.intelligence)
+            self.character.intelligence = self.intelligenceBox.value()
 
-            elif self.character.agility != self.agilityBox.value():
-                if self.character.agility > self.agilityBox.value():
-                    self.available_skill_points += 1
-                else:
-                    self.available_skill_points -= 1
-                self.character.agility = self.agilityBox.value()
+        elif attribute == self.agilityLabel.text() and self.available_skill_points >= 0:
+            if self.character.agility > self.agilityBox.value():
+                self.available_skill_points += 1
+            elif self.character.agility < self.agilityBox.value() and self.available_skill_points > 0:
+                self.available_skill_points -= 1
+            else:
+                self.agilityBox.setValue(self.character.agility)
+            self.character.agility = self.agilityBox.value()
 
-            elif self.character.luck != self.luckBox.value():
-                if self.character.luck > self.luckBox.value():
-                    self.available_skill_points += 1
-                else:
-                    self.available_skill_points -= 1
-                self.character.luck = self.luckBox.value()
+        elif attribute == self.luckLabel.text() and self.available_skill_points >= 0:
+            if self.character.luck > self.luckBox.value():
+                self.available_skill_points += 1
+            elif self.character.luck < self.luckBox.value() and self.available_skill_points > 0:
+                self.available_skill_points -= 1
+            else:
+                self.luckBox.setValue(self.character.luck)
+            self.character.luck = self.luckBox.value()
 
-            self.availablePointsBox.setText(str(self.available_skill_points))
+        self.availablePointsBox.setText(str(self.available_skill_points))
 
-        elif self.available_skill_points == 0:
-            if self.character.strength != self.strengthSpinBox.value():
-                if self.character.strength > self.strengthSpinBox.value():
-                    self.available_skill_points += 1
-                else:
-                    self.strengthSpinBox.setValue(self.character.strength)
-                self.character.strength = self.strengthSpinBox.value()
+    def handle_skill_tag_change(self, skill):
+        pass
 
-            elif self.character.perception != self.perceptionBox.value():
-                if self.character.perception > self.perceptionBox.value():
-                    self.available_skill_points += 1
-                else:
-                    self.perceptionBox.setValue(self.character.perception)
-                self.character.perception = self.perceptionBox.value()
-
-            elif self.character.endurance != self.enduranceBox.value():
-                if self.character.endurance > self.enduranceBox.value():
-                    self.available_skill_points += 1
-                else:
-                    self.enduranceBox.setValue(self.character.endurance)
-                self.character.endurance = self.enduranceBox.value()
-
-            elif self.character.charisma != self.charismaBox.value():
-                if self.character.charisma > self.charismaBox.value():
-                    self.available_skill_points += 1
-                else:
-                    self.charismaBox.setValue(self.character.charisma)
-                self.character.charisma = self.charismaBox.value()
-
-            elif self.character.intelligence != self.intelligenceBox.value():
-                if self.character.intelligence > self.intelligenceBox.value():
-                    self.available_skill_points += 1
-                else:
-                    self.intelligenceBox.setValue(self.character.intelligence)
-                self.character.intelligence = self.intelligenceBox.value()
-
-            elif self.character.agility != self.agilityBox.value():
-                if self.character.agility > self.agilityBox.value():
-                    self.available_skill_points += 1
-                else:
-                    self.agilityBox.setValue(self.character.agility)
-                self.character.agility = self.agilityBox.value()
-
-            elif self.character.luck != self.luckBox.value():
-                if self.character.luck > self.luckBox.value():
-                    self.available_skill_points += 1
-                else:
-                    self.luckBox.setValue(self.character.luck)
-                self.character.luck = self.luckBox.value()
-
-            self.availablePointsBox.setText(str(self.available_skill_points))
-
-    # test method
     def handle_strength_tag(self):
         if self.smallGunsTag.isChecked() and self.tagged_skills[1] < 3:
             self.character.small_guns += 20

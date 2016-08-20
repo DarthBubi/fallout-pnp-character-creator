@@ -33,7 +33,7 @@
    <item row="1" column="0">
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QGridLayout" name="gridLayout_3">
@@ -150,7 +150,7 @@
           <widget class="QLineEdit" name="heightField"/>
          </item>
          <item row="7" column="1">
-          <widget class="QLineEdit" name="lineEdit_7"/>
+          <widget class="QLineEdit" name="weightField"/>
          </item>
          <item row="8" column="0">
           <widget class="QLabel" name="label_9">
@@ -184,14 +184,14 @@
          <widget class="QSpinBox" name="intelligenceBox"/>
         </item>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_10">
+         <widget class="QLabel" name="strengthLabel">
           <property name="text">
            <string>Strength</string>
           </property>
          </widget>
         </item>
         <item row="5" column="0">
-         <widget class="QLabel" name="label_11">
+         <widget class="QLabel" name="agilityLabel">
           <property name="text">
            <string>Agility</string>
           </property>
@@ -201,21 +201,21 @@
          <widget class="QSpinBox" name="strengthSpinBox"/>
         </item>
         <item row="3" column="0">
-         <widget class="QLabel" name="label_12">
+         <widget class="QLabel" name="charismaLabel">
           <property name="text">
            <string>Charisma</string>
           </property>
          </widget>
         </item>
         <item row="6" column="0">
-         <widget class="QLabel" name="label_14">
+         <widget class="QLabel" name="luckLabel">
           <property name="text">
            <string>Luck</string>
           </property>
          </widget>
         </item>
         <item row="4" column="0">
-         <widget class="QLabel" name="label_13">
+         <widget class="QLabel" name="intelligenceLabel">
           <property name="text">
            <string>Intelligence</string>
           </property>
@@ -228,14 +228,14 @@
          <widget class="QSpinBox" name="luckBox"/>
         </item>
         <item row="2" column="0">
-         <widget class="QLabel" name="label_16">
+         <widget class="QLabel" name="enduranceLabel">
           <property name="text">
            <string>Endurance</string>
           </property>
          </widget>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_15">
+         <widget class="QLabel" name="perceptionLabel">
           <property name="text">
            <string>Perception</string>
           </property>
@@ -273,13 +273,13 @@
         <rect>
          <x>10</x>
          <y>10</y>
-         <width>311</width>
+         <width>191</width>
          <height>561</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_5">
         <item row="14" column="0">
-         <widget class="QLabel" name="label_31">
+         <widget class="QLabel" name="speechLabel">
           <property name="text">
            <string>Speech</string>
           </property>
@@ -295,7 +295,7 @@
          <widget class="QSpinBox" name="energyWeaponsBox"/>
         </item>
         <item row="3" column="0">
-         <widget class="QLabel" name="label_20">
+         <widget class="QLabel" name="unarmedLabel">
           <property name="text">
            <string>Unarmed</string>
           </property>
@@ -305,28 +305,28 @@
          <widget class="QSpinBox" name="sneakBox"/>
         </item>
         <item row="12" column="0">
-         <widget class="QLabel" name="label_29">
+         <widget class="QLabel" name="repairLabel">
           <property name="text">
            <string>Repair</string>
           </property>
          </widget>
         </item>
         <item row="5" column="0">
-         <widget class="QLabel" name="label_22">
+         <widget class="QLabel" name="throwingWeaponsLabel">
           <property name="text">
            <string>Throwing</string>
           </property>
          </widget>
         </item>
         <item row="13" column="0">
-         <widget class="QLabel" name="label_30">
+         <widget class="QLabel" name="pilotLabel">
           <property name="text">
            <string>Pilot</string>
           </property>
          </widget>
         </item>
         <item row="16" column="0">
-         <widget class="QLabel" name="label_33">
+         <widget class="QLabel" name="gamblingLabel">
           <property name="text">
            <string>Gambling</string>
           </property>
@@ -339,7 +339,7 @@
          <widget class="QSpinBox" name="lockpickBox"/>
         </item>
         <item row="0" column="0">
-         <widget class="QLabel" name="label_17">
+         <widget class="QLabel" name="smallGunsLabel">
           <property name="text">
            <string>Small Guns</string>
           </property>
@@ -349,7 +349,7 @@
          <widget class="QSpinBox" name="survivalBox"/>
         </item>
         <item row="1" column="0">
-         <widget class="QLabel" name="label_18">
+         <widget class="QLabel" name="bigGunsLabel">
           <property name="text">
            <string>Big Guns</string>
           </property>
@@ -365,14 +365,14 @@
          <widget class="QSpinBox" name="throwingBox"/>
         </item>
         <item row="10" column="0">
-         <widget class="QLabel" name="label_27">
+         <widget class="QLabel" name="trapsLabel">
           <property name="text">
            <string>Traps</string>
           </property>
          </widget>
         </item>
         <item row="15" column="0">
-         <widget class="QLabel" name="label_32">
+         <widget class="QLabel" name="barterLabel">
           <property name="text">
            <string>Barter</string>
           </property>
@@ -382,28 +382,28 @@
          <widget class="QSpinBox" name="smallGunsBox"/>
         </item>
         <item row="6" column="0">
-         <widget class="QLabel" name="label_23">
+         <widget class="QLabel" name="explosivesLabel">
           <property name="text">
            <string>Explosives</string>
           </property>
          </widget>
         </item>
         <item row="2" column="0">
-         <widget class="QLabel" name="label_19">
+         <widget class="QLabel" name="energyWeaponsLabel">
           <property name="text">
            <string>Energy Weapons</string>
           </property>
          </widget>
         </item>
         <item row="8" column="0">
-         <widget class="QLabel" name="label_25">
+         <widget class="QLabel" name="sneakLabel">
           <property name="text">
            <string>Sneak</string>
           </property>
          </widget>
         </item>
         <item row="4" column="0">
-         <widget class="QLabel" name="label_21">
+         <widget class="QLabel" name="meleeWeaponsLabel">
           <property name="text">
            <string>Melee Weapons</string>
           </property>
@@ -422,14 +422,14 @@
          <widget class="QSpinBox" name="speechBox"/>
         </item>
         <item row="9" column="0">
-         <widget class="QLabel" name="label_26">
+         <widget class="QLabel" name="lockpickLabel">
           <property name="text">
            <string>Lockpick</string>
           </property>
          </widget>
         </item>
         <item row="17" column="0">
-         <widget class="QLabel" name="label_34">
+         <widget class="QLabel" name="survivalLabel">
           <property name="text">
            <string>Survival</string>
           </property>
@@ -439,7 +439,7 @@
          <widget class="QSpinBox" name="trapsBox"/>
         </item>
         <item row="7" column="0">
-         <widget class="QLabel" name="label_24">
+         <widget class="QLabel" name="doctorLabel">
           <property name="text">
            <string>Doctor</string>
           </property>
@@ -449,7 +449,7 @@
          <widget class="QSpinBox" name="repairBox"/>
         </item>
         <item row="11" column="0">
-         <widget class="QLabel" name="label_28">
+         <widget class="QLabel" name="scienceLabel">
           <property name="text">
            <string>Science</string>
           </property>
