@@ -33,7 +33,7 @@
    <item row="1" column="0">
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>0</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QGridLayout" name="gridLayout_3">
@@ -47,7 +47,7 @@
           </widget>
          </item>
          <item row="3" column="1">
-          <widget class="QComboBox" name="comboBox">
+          <widget class="QComboBox" name="racePicker">
            <item>
             <property name="text">
              <string>Human</string>
@@ -100,13 +100,10 @@
           </widget>
          </item>
          <item row="0" column="1">
-          <widget class="QLineEdit" name="lineEdit"/>
-         </item>
-         <item row="2" column="1">
-          <widget class="QLineEdit" name="lineEdit_3"/>
+          <widget class="QLineEdit" name="nameField"/>
          </item>
          <item row="1" column="1">
-          <widget class="QLineEdit" name="lineEdit_2"/>
+          <widget class="QLineEdit" name="ageField"/>
          </item>
          <item row="3" column="0">
           <widget class="QLabel" name="label_4">
@@ -116,7 +113,7 @@
           </widget>
          </item>
          <item row="4" column="1">
-          <widget class="QLineEdit" name="lineEdit_4"/>
+          <widget class="QLineEdit" name="eyesField"/>
          </item>
          <item row="7" column="0">
           <widget class="QLabel" name="label_8">
@@ -140,7 +137,7 @@
           </widget>
          </item>
          <item row="5" column="1">
-          <widget class="QLineEdit" name="lineEdit_5"/>
+          <widget class="QLineEdit" name="hairField"/>
          </item>
          <item row="5" column="0">
           <widget class="QLabel" name="label_6">
@@ -150,7 +147,7 @@
           </widget>
          </item>
          <item row="6" column="1">
-          <widget class="QLineEdit" name="lineEdit_6"/>
+          <widget class="QLineEdit" name="heightField"/>
          </item>
          <item row="7" column="1">
           <widget class="QLineEdit" name="lineEdit_7"/>
@@ -163,7 +160,10 @@
           </widget>
          </item>
          <item row="8" column="1">
-          <widget class="QTextEdit" name="textEdit"/>
+          <widget class="QTextEdit" name="appearanceField"/>
+         </item>
+         <item row="2" column="1">
+          <widget class="QComboBox" name="sexPicker"/>
          </item>
         </layout>
        </item>
@@ -175,29 +175,20 @@
         <rect>
          <x>10</x>
          <y>40</y>
-         <width>131</width>
-         <height>198</height>
+         <width>155</width>
+         <height>294</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_4">
+        <item row="4" column="1">
+         <widget class="QSpinBox" name="intelligenceBox"/>
+        </item>
         <item row="0" column="0">
          <widget class="QLabel" name="label_10">
           <property name="text">
            <string>Strength</string>
           </property>
          </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QSpinBox" name="strengthSpinBox"/>
-        </item>
-        <item row="2" column="1">
-         <widget class="QSpinBox" name="enduranceBox"/>
-        </item>
-        <item row="3" column="1">
-         <widget class="QSpinBox" name="charismaBox"/>
-        </item>
-        <item row="4" column="1">
-         <widget class="QSpinBox" name="intelligenceBox"/>
         </item>
         <item row="5" column="0">
          <widget class="QLabel" name="label_11">
@@ -206,10 +197,20 @@
           </property>
          </widget>
         </item>
+        <item row="0" column="1">
+         <widget class="QSpinBox" name="strengthSpinBox"/>
+        </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_12">
           <property name="text">
            <string>Charisma</string>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="0">
+         <widget class="QLabel" name="label_14">
+          <property name="text">
+           <string>Luck</string>
           </property>
          </widget>
         </item>
@@ -220,13 +221,16 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="1">
-         <widget class="QSpinBox" name="agilityBox"/>
+        <item row="3" column="1">
+         <widget class="QSpinBox" name="charismaBox"/>
         </item>
-        <item row="6" column="0">
-         <widget class="QLabel" name="label_14">
+        <item row="6" column="1">
+         <widget class="QSpinBox" name="luckBox"/>
+        </item>
+        <item row="2" column="0">
+         <widget class="QLabel" name="label_16">
           <property name="text">
-           <string>Luck</string>
+           <string>Endurance</string>
           </property>
          </widget>
         </item>
@@ -237,18 +241,28 @@
           </property>
          </widget>
         </item>
+        <item row="5" column="1">
+         <widget class="QSpinBox" name="agilityBox"/>
+        </item>
         <item row="1" column="1">
          <widget class="QSpinBox" name="perceptionBox"/>
         </item>
-        <item row="2" column="0">
-         <widget class="QLabel" name="label_16">
+        <item row="2" column="1">
+         <widget class="QSpinBox" name="enduranceBox"/>
+        </item>
+        <item row="7" column="0">
+         <widget class="QLabel" name="label_35">
           <property name="text">
-           <string>Endurance</string>
+           <string>Points to go</string>
           </property>
          </widget>
         </item>
-        <item row="6" column="1">
-         <widget class="QSpinBox" name="luckBox"/>
+        <item row="7" column="1">
+         <widget class="QLineEdit" name="availablePointsBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
@@ -264,31 +278,43 @@
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_5">
-        <item row="11" column="0">
-         <widget class="QLabel" name="label_28">
+        <item row="14" column="0">
+         <widget class="QLabel" name="label_31">
           <property name="text">
-           <string>Science</string>
+           <string>Speech</string>
           </property>
          </widget>
         </item>
-        <item row="9" column="0">
-         <widget class="QLabel" name="label_26">
-          <property name="text">
-           <string>Lockpick</string>
-          </property>
-         </widget>
+        <item row="6" column="1">
+         <widget class="QSpinBox" name="explosivesBox"/>
         </item>
-        <item row="7" column="0">
-         <widget class="QLabel" name="label_24">
-          <property name="text">
-           <string>Doctor</string>
-          </property>
-         </widget>
+        <item row="4" column="1">
+         <widget class="QSpinBox" name="meleeWeaponsBox"/>
+        </item>
+        <item row="2" column="1">
+         <widget class="QSpinBox" name="energyWeaponsBox"/>
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="label_20">
           <property name="text">
            <string>Unarmed</string>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="1">
+         <widget class="QSpinBox" name="sneakBox"/>
+        </item>
+        <item row="12" column="0">
+         <widget class="QLabel" name="label_29">
+          <property name="text">
+           <string>Repair</string>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="label_22">
+          <property name="text">
+           <string>Throwing</string>
           </property>
          </widget>
         </item>
@@ -299,12 +325,28 @@
           </property>
          </widget>
         </item>
-        <item row="15" column="0">
-         <widget class="QLabel" name="label_32">
+        <item row="16" column="0">
+         <widget class="QLabel" name="label_33">
           <property name="text">
-           <string>Barter</string>
+           <string>Gambling</string>
           </property>
          </widget>
+        </item>
+        <item row="3" column="1">
+         <widget class="QSpinBox" name="unarmedBox"/>
+        </item>
+        <item row="9" column="1">
+         <widget class="QSpinBox" name="lockpickBox"/>
+        </item>
+        <item row="0" column="0">
+         <widget class="QLabel" name="label_17">
+          <property name="text">
+           <string>Small Guns</string>
+          </property>
+         </widget>
+        </item>
+        <item row="17" column="1">
+         <widget class="QSpinBox" name="survivalBox"/>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="label_18">
@@ -316,48 +358,33 @@
         <item row="1" column="1">
          <widget class="QSpinBox" name="bigGunsBox"/>
         </item>
-        <item row="5" column="0">
-         <widget class="QLabel" name="label_22">
+        <item row="7" column="1">
+         <widget class="QSpinBox" name="doctorBox"/>
+        </item>
+        <item row="5" column="1">
+         <widget class="QSpinBox" name="throwingBox"/>
+        </item>
+        <item row="10" column="0">
+         <widget class="QLabel" name="label_27">
           <property name="text">
-           <string>Throwing</string>
+           <string>Traps</string>
+          </property>
+         </widget>
+        </item>
+        <item row="15" column="0">
+         <widget class="QLabel" name="label_32">
+          <property name="text">
+           <string>Barter</string>
           </property>
          </widget>
         </item>
         <item row="0" column="1">
          <widget class="QSpinBox" name="smallGunsBox"/>
         </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="label_17">
+        <item row="6" column="0">
+         <widget class="QLabel" name="label_23">
           <property name="text">
-           <string>Small Guns</string>
-          </property>
-         </widget>
-        </item>
-        <item row="12" column="0">
-         <widget class="QLabel" name="label_29">
-          <property name="text">
-           <string>Repair</string>
-          </property>
-         </widget>
-        </item>
-        <item row="14" column="0">
-         <widget class="QLabel" name="label_31">
-          <property name="text">
-           <string>Speech</string>
-          </property>
-         </widget>
-        </item>
-        <item row="16" column="0">
-         <widget class="QLabel" name="label_33">
-          <property name="text">
-           <string>Gambling</string>
-          </property>
-         </widget>
-        </item>
-        <item row="8" column="0">
-         <widget class="QLabel" name="label_25">
-          <property name="text">
-           <string>Sneak</string>
+           <string>Explosives</string>
           </property>
          </widget>
         </item>
@@ -368,17 +395,10 @@
           </property>
          </widget>
         </item>
-        <item row="6" column="0">
-         <widget class="QLabel" name="label_23">
+        <item row="8" column="0">
+         <widget class="QLabel" name="label_25">
           <property name="text">
-           <string>Explosives</string>
-          </property>
-         </widget>
-        </item>
-        <item row="10" column="0">
-         <widget class="QLabel" name="label_27">
-          <property name="text">
-           <string>Traps</string>
+           <string>Sneak</string>
           </property>
          </widget>
         </item>
@@ -389,6 +409,25 @@
           </property>
          </widget>
         </item>
+        <item row="15" column="1">
+         <widget class="QSpinBox" name="barterBox"/>
+        </item>
+        <item row="13" column="1">
+         <widget class="QSpinBox" name="pilotBox"/>
+        </item>
+        <item row="16" column="1">
+         <widget class="QSpinBox" name="gamblingBox"/>
+        </item>
+        <item row="14" column="1">
+         <widget class="QSpinBox" name="speechBox"/>
+        </item>
+        <item row="9" column="0">
+         <widget class="QLabel" name="label_26">
+          <property name="text">
+           <string>Lockpick</string>
+          </property>
+         </widget>
+        </item>
         <item row="17" column="0">
          <widget class="QLabel" name="label_34">
           <property name="text">
@@ -396,53 +435,154 @@
           </property>
          </widget>
         </item>
-        <item row="2" column="1">
-         <widget class="QSpinBox" name="energyWeaponsBox"/>
-        </item>
-        <item row="3" column="1">
-         <widget class="QSpinBox" name="unarmedBox"/>
-        </item>
-        <item row="4" column="1">
-         <widget class="QSpinBox" name="meleeWeaponsBox"/>
-        </item>
-        <item row="5" column="1">
-         <widget class="QSpinBox" name="throwingBox"/>
-        </item>
-        <item row="6" column="1">
-         <widget class="QSpinBox" name="explosivesBox"/>
-        </item>
-        <item row="7" column="1">
-         <widget class="QSpinBox" name="doctorBox"/>
-        </item>
-        <item row="8" column="1">
-         <widget class="QSpinBox" name="sneakBox"/>
-        </item>
-        <item row="9" column="1">
-         <widget class="QSpinBox" name="lockpickBox"/>
-        </item>
         <item row="10" column="1">
          <widget class="QSpinBox" name="trapsBox"/>
         </item>
-        <item row="11" column="1">
-         <widget class="QSpinBox" name="scienceBox"/>
+        <item row="7" column="0">
+         <widget class="QLabel" name="label_24">
+          <property name="text">
+           <string>Doctor</string>
+          </property>
+         </widget>
         </item>
         <item row="12" column="1">
          <widget class="QSpinBox" name="repairBox"/>
         </item>
-        <item row="13" column="1">
-         <widget class="QSpinBox" name="pilotBox"/>
+        <item row="11" column="0">
+         <widget class="QLabel" name="label_28">
+          <property name="text">
+           <string>Science</string>
+          </property>
+         </widget>
         </item>
-        <item row="14" column="1">
-         <widget class="QSpinBox" name="speechBox"/>
+        <item row="11" column="1">
+         <widget class="QSpinBox" name="scienceBox"/>
         </item>
-        <item row="15" column="1">
-         <widget class="QSpinBox" name="barterBox"/>
+        <item row="0" column="2">
+         <widget class="QCheckBox" name="smallGunsTag">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
         </item>
-        <item row="16" column="1">
-         <widget class="QSpinBox" name="gamblingBox"/>
+        <item row="1" column="2">
+         <widget class="QCheckBox" name="bigGunsTag">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
         </item>
-        <item row="17" column="1">
-         <widget class="QSpinBox" name="survivalBox"/>
+        <item row="2" column="2">
+         <widget class="QCheckBox" name="energyWeaponsTag">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QCheckBox" name="unarmedTag">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QCheckBox" name="meleeWeaponsTag">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="QCheckBox" name="throwingTag">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="2">
+         <widget class="QCheckBox" name="explosivesTag">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="2">
+         <widget class="QCheckBox" name="doctorTag">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="8" column="2">
+         <widget class="QCheckBox" name="sneakTag">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="9" column="2">
+         <widget class="QCheckBox" name="lockpickTag">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="10" column="2">
+         <widget class="QCheckBox" name="trapsTag">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="11" column="2">
+         <widget class="QCheckBox" name="scienceTag">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="12" column="2">
+         <widget class="QCheckBox" name="repairTag">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="13" column="2">
+         <widget class="QCheckBox" name="pilotTag">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="14" column="2">
+         <widget class="QCheckBox" name="speechTag">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="15" column="2">
+         <widget class="QCheckBox" name="barterTag">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="16" column="2">
+         <widget class="QCheckBox" name="gamblingTag">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
+        </item>
+        <item row="17" column="2">
+         <widget class="QCheckBox" name="survivalTag">
+          <property name="text">
+           <string/>
+          </property>
+         </widget>
         </item>
        </layout>
       </widget>
