@@ -594,19 +594,30 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
         self.gamblingBox.setValue(self.character.gambling)
         self.survivalBox.setValue(self.character.survival)
 
-    # TODO: Check if all fields are filled with valid values
+    def validate_fields(self):
+        if self.nameField.text() and self.ageField.text() and self.eyesField.text() and self.hairField.text() and \
+                self.heightField.text() and self.weightField.text():
+            return True
+        else:
+            return False
+
     def finish_character_creation(self):
-        self.character.name = self.nameField.text()
-        self.character.age = self.ageField.text()
-        self.character.sex = self.sexPicker.currentText()
-        self.accept()
+        if self.validate_fields() and self.tagged_skills.__len__() == 3 and self.available_skill_points == 0:
+            self.character.name = self.nameField.text()
+            self.character.age = self.ageField.text()
+            self.character.sex = self.sexPicker.currentText()
+            self.character.eyes = self.eyesField.text()
+            self.character.hair = self.hairField.text()
+            self.character.height = self.heightField.text()
+            self.character.weight = self.weightField.text()
+            self.character.appearance = self.appearanceField.toPlainText()
+            self.accept()
 
     def get_character(self):
         return self.character
 
 
 class AboutDialogue(QtWidgets.QDialog, about_dialogue.Ui_Dialog):
-
     def __init__(self, parent=None):
         super(AboutDialogue, self).__init__(parent)
         self.setupUi(self)
