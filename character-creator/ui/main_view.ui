@@ -536,6 +536,7 @@
     <property name="title">
      <string>Fi&amp;le</string>
     </property>
+    <addaction name="importFromDatabaseAction"/>
     <addaction name="quitAction"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -652,6 +653,11 @@
    </property>
    <property name="shortcut">
     <string>Ctrl+I</string>
+   </property>
+  </action>
+  <action name="importFromDatabaseAction">
+   <property name="text">
+    <string>Import from Database</string>
    </property>
   </action>
  </widget>

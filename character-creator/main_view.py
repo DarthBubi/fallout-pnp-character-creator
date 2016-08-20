@@ -338,6 +338,9 @@ class Ui_MainWindow(object):
         icon4.addPixmap(QtGui.QPixmap(":/themes/oxygen/22x22/actions/document-import.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.importCharacterAction.setIcon(icon4)
         self.importCharacterAction.setObjectName("importCharacterAction")
+        self.importFromDatabaseAction = QtWidgets.QAction(MainWindow)
+        self.importFromDatabaseAction.setObjectName("importFromDatabaseAction")
+        self.menuFile.addAction(self.importFromDatabaseAction)
         self.menuFile.addAction(self.quitAction)
         self.menuHelp.addAction(self.aboutAction)
         self.menubar.addAction(self.menuFile.menuAction())
@@ -413,5 +416,6 @@ class Ui_MainWindow(object):
         self.importCharacterAction.setText(_translate("MainWindow", "importCharacter"))
         self.importCharacterAction.setToolTip(_translate("MainWindow", "Import a character"))
         self.importCharacterAction.setShortcut(_translate("MainWindow", "Ctrl+I"))
+        self.importFromDatabaseAction.setText(_translate("MainWindow", "Import from Database"))
 
 import oxygen_rc

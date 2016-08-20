@@ -1,6 +1,7 @@
 import sys
 
 from PyQt5 import QtWidgets
+from PyQt5 import QtCore
 import pickle
 import os
 
@@ -8,6 +9,7 @@ import character
 import main_view
 import about_dialogue
 import new_character_dialogue
+import import_dialogue
 
 __author__ = "Johannes Hackbarth"
 
@@ -35,6 +37,7 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         self.saveCharacterAction.triggered.connect(self.save_characters_to_file)
         self.importCharacterAction.triggered.connect(self.import_character)
         self.exportCharacterAction.triggered.connect(self.export_character)
+        self.importFromDatabaseAction.triggered.connect(self.import_from_db)
         self.characterListWidget.currentItemChanged.connect(self.show_attributes)
         self.characterListWidget.currentItemChanged.connect(self.show_general)
         self.characterListWidget.currentItemChanged.connect(self.show_skills)
@@ -61,6 +64,19 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         new_character = NewCharacterDialogue()
         if new_character.exec_():
             self.add_character_to_dict(new_character.get_character())
+
+    def import_from_db(self):
+        import_path =  QtWidgets.QFileDialog.getOpenFileName(self, 'Open File', ".", "*.fcd")
+
+        if import_path[0] is not "":
+            with open(import_path[0], "rb") as import_file:
+                import_db = pickle.load(import_file)
+
+            import_dialog = ImportFromDatabase(import_db, self)
+
+            if import_dialog.exec_():
+                for name in import_dialog.get_characters():
+                    self.add_character_to_dict(import_db.get(name))
 
     def list_characters(self):
         for name in self.character_dict:
@@ -162,6 +178,32 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         char_item = QtWidgets.QListWidgetItem(char.name)
         self.character_dict.update({char_item.text(): char})
         self.characterListWidget.addItem(char_item)
+
+class ImportFromDatabase(QtWidgets.QDialog, import_dialogue.Ui_Dialog):
+
+    def __init__(self, import_db, parent=None):
+        super(ImportFromDatabase, self).__init__(parent)
+        self.setupUi(self)
+
+        for character in import_db:
+            item = QtWidgets.QListWidgetItem(character)
+            item.setFlags(item.flags() | QtCore.Qt.ItemIsUserCheckable)
+            item.setCheckState(QtCore.Qt.Unchecked)
+            self.characterListWidget.addItem(item)
+
+        self.characters = []
+        self.buttonBox.button(QtWidgets.QDialogButtonBox.Ok).clicked.connect(self.finish_import)
+        self.buttonBox.button(QtWidgets.QDialogButtonBox.Cancel).clicked.connect(self.close)
+
+    def finish_import(self):
+        for index in range(self.characterListWidget.count()):
+            item = self.characterListWidget.item(index)
+            if item.checkState() == QtCore.Qt.Checked:
+                self.characters.append(item.text())
+        self.accept()
+
+    def get_characters(self):
+        return self.characters
 
 
 # TODO: Add traits and items to character generation
