@@ -37,7 +37,6 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
             with open(os.path.expanduser("~") + "/.fcdbpath", "rb") as dbfile:
                 self.dbpath = pickle.load(dbfile)
         else:
-            self.changes = True
             path = QtWidgets.QFileDialog.getExistingDirectory(self, 'Select Database File', os.path.expanduser("~"))
             if path is not "":
                 self.dbpath = path + "/database.fcd"
@@ -152,16 +151,23 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         self.statusBar().showMessage("Import erfolgreich", 1000)
 
     def save_characters_to_file(self):
-        with open(self.dbpath, 'wb') as file:
+        with open(self.dbpath, "wb") as file:
             pickle.dump(self.character_dict, file)
+
+        with open(os.path.expanduser("~") + "/.fcdbpath", "wb") as dbfile:
+            pickle.dump(self.dbpath, dbfile)
+
+        self.changes = False
         self.statusBar().showMessage("Speichern erfolgreich", 1000)
 
-    # TODO: Read single character from file and add to character database
     def file_open(self):
         self.changes = True
-        name = QtWidgets.QFileDialog.getOpenFileName(self, 'Open File', ".", "*.fcd")
-        if name[0] != "":
-            with open(name[0], 'rb') as file:
+
+        path = QtWidgets.QFileDialog.getOpenFileName(self, 'Open File', ".", "*.fcd")
+
+        if path[0] is not "":
+            self.dbpath = path[0]
+            with open(path[0], "rb") as file:
                 self.character_dict = pickle.load(file)
                 self.characterListWidget.blockSignals(True)
                 self.characterListWidget.clear()
