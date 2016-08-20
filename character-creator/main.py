@@ -2,6 +2,7 @@ import sys
 
 from PyQt5 import QtWidgets
 import pickle
+import os
 
 import character
 import main_view
@@ -37,6 +38,23 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         self.characterListWidget.currentItemChanged.connect(self.show_attributes)
         self.characterListWidget.currentItemChanged.connect(self.show_general)
         self.characterListWidget.currentItemChanged.connect(self.show_skills)
+
+        if os.path.exists(os.path.expanduser("~") + "/.fcdbpath"):
+            with open(os.path.expanduser("~") + "/.fcdbpath", "rb") as dbfile:
+                self.dbpath = pickle.load(dbfile)
+        else:
+            path = QtWidgets.QFileDialog.getExistingDirectory(self, 'Select Database File', os.path.expanduser("~"))
+            if path is not "":
+                self.dbpath = path + "/database.fcd"
+                with open(os.path.expanduser("~") + "/.fcdbpath", "wb") as dbfile:
+                    pickle.dump(self.dbpath, dbfile)
+            else:
+                sys.exit(0)
+
+        if os.path.exists(self.dbpath):
+            with open(self.dbpath, 'rb') as db:
+                self.character_dict = pickle.load(db)
+
         self.list_characters()
 
     def new_character(self):
@@ -132,19 +150,19 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         self.statusBar().showMessage("Import erfolgreich", 1000)
 
     def save_characters_to_file(self):
-        with open('characters.pickle', 'wb') as file:
+        with open(self.dbpath, 'wb') as file:
             pickle.dump(self.character_dict, file)
         self.statusBar().showMessage("Speichern erfolgreich", 1000)
 
     # TODO: Read single character from file and add to character database
     def file_open(self):
-        name = QtWidgets.QFileDialog.getOpenFileName(self, 'Open File', ".", "*.pickle")
+        name = QtWidgets.QFileDialog.getOpenFileName(self, 'Open File', ".", "*.fcd")
         if name[0] != "":
             with open(name[0], 'rb') as file:
+                self.character_dict = pickle.load(file)
                 self.characterListWidget.blockSignals(True)
                 self.characterListWidget.clear()
                 self.characterListWidget.blockSignals(False)
-                self.character_dict = pickle.load(file)
                 self.list_characters()
 
     def closeEvent(self, event):
