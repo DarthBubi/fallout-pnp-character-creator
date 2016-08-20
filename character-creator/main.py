@@ -640,7 +640,6 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
                 self.descriptionBox.setText(trait.effect)
                 break
 
-    # TODO: Fix nasty uncheck bug
     def handle_trait_check(self):
         i = 0
         while self.traitListWidget.item(i):
@@ -648,19 +647,15 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
                 for trait in config.TRAIT_LIST:
                     if self.traitListWidget.item(i).text() == trait.name and self.character.traits.__contains__(trait):
                         self.character.remove_trait(trait)
-                        print(self.character.traits)
-                        print(self.character.traits.__len__())
                         break
             elif self.traitListWidget.item(i).checkState() and self.character.traits.__len__() < 2:
                 for trait in config.TRAIT_LIST:
                     if self.traitListWidget.item(i).text() == trait.name:
                         self.character.add_trait(trait)
-                        print(self.character.traits)
-                        print(self.character.traits.__len__())
                         break
             elif self.traitListWidget.item(i).checkState() and self.character.traits.__len__() == 2:
                 for trait in config.TRAIT_LIST:
-                    if not self.character.traits.__contains__(trait):
+                    if self.traitListWidget.item(i).text() == trait.name and not self.character.traits.__contains__(trait):
                         self.traitListWidget.item(i).setCheckState(QtCore.Qt.Unchecked)
 
             i += 1
