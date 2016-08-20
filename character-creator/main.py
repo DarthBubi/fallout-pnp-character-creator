@@ -15,7 +15,6 @@ __author__ = "Johannes Hackbarth"
 
 
 class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
-
     # TODO: Read existing characters from file
     def __init__(self, parent=None):
         self.foo = character.DogCharacter()
@@ -88,7 +87,8 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         self.perceptionBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).perception)
         self.enduranceBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).endurance)
         self.charismaBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).charisma)
-        self.intelligenceBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).intelligence)
+        self.intelligenceBox.setValue(
+            self.character_dict.get(self.characterListWidget.currentItem().text()).intelligence)
         self.agilityBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).agility)
         self.luckBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).luck)
 
@@ -99,16 +99,20 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         self.raceField.setText(self.character_dict.get(self.characterListWidget.currentItem().text()).__str__())
         self.eyesField.setText(self.character_dict.get(self.characterListWidget.currentItem().text()).eyes)
         self.hairField.setText(self.character_dict.get(self.characterListWidget.currentItem().text()).hair)
-        self.heightField.setText(self.character_dict.get(self.characterListWidget.currentItem().text()).height.__str__())
-        self.weightField.setText(self.character_dict.get(self.characterListWidget.currentItem().text()).weight.__str__())
+        self.heightField.setText(
+            self.character_dict.get(self.characterListWidget.currentItem().text()).height.__str__())
+        self.weightField.setText(
+            self.character_dict.get(self.characterListWidget.currentItem().text()).weight.__str__())
         self.appearanceField.setText(self.character_dict.get(self.characterListWidget.currentItem().text()).appearance)
 
     def show_skills(self):
         self.smallGunsBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).small_guns)
         self.bigGunsBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).big_guns)
-        self.energyWeaponsBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).energy_weapons)
+        self.energyWeaponsBox.setValue(
+            self.character_dict.get(self.characterListWidget.currentItem().text()).energy_weapons)
         self.unarmedBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).unarmed)
-        self.meleeWeaponsBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).melee_weapons)
+        self.meleeWeaponsBox.setValue(
+            self.character_dict.get(self.characterListWidget.currentItem().text()).melee_weapons)
         self.throwingBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).throwing)
         self.explosivesBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).explosives)
         self.doctorBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).doctor)
@@ -509,13 +513,13 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
 
     def next_page(self):
         if self.stackedWidget.currentIndex() < self.stackedWidget.count():
-            self.stackedWidget.setCurrentIndex(self.stackedWidget.currentIndex()+1)
+            self.stackedWidget.setCurrentIndex(self.stackedWidget.currentIndex() + 1)
             if self.stackedWidget.currentIndex() == 2:
                 self.set_skill_values()
 
     def previous_page(self):
         if self.stackedWidget.currentIndex() > 0:
-            self.stackedWidget.setCurrentIndex(self.stackedWidget.currentIndex()-1)
+            self.stackedWidget.setCurrentIndex(self.stackedWidget.currentIndex() - 1)
 
     def selected_race(self):
         if self.racePicker.currentText() == "Deathclaw":
@@ -564,7 +568,7 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
         self.enduranceBox.setMinimum(self.character.MIN_ENDURANCE)
         self.enduranceBox.setMaximum(self.character.MAX_ENDURANCE)
         self.charismaBox.setMinimum(self.character.MIN_CHARISMA)
-        self.charismaBox.setMaximum( self.character.MAX_CHARISMA)
+        self.charismaBox.setMaximum(self.character.MAX_CHARISMA)
         self.intelligenceBox.setMinimum(self.character.MIN_INTELLIGENCE)
         self.intelligenceBox.setMaximum(self.character.MAX_INTELLIGENCE)
         self.agilityBox.setMinimum(self.character.MIN_AGILITY)
@@ -629,5 +633,6 @@ def main():
     form = CharacterCreator()
     form.show()
     sys.exit(app.exec_())
+
 
 main()
