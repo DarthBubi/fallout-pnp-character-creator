@@ -67,6 +67,10 @@ target/
 # Serialized Objects
 *.pickle
 
+# Custom db files
+*.fcd
+*.fcf
+
 # PyCharm
 .idea/
 
