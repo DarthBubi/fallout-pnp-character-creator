@@ -2,8 +2,7 @@
 
 # Form implementation generated from reading ui file 'ui/main_view.ui'
 #
-# Created: Sat Aug 20 13:53:15 2016
-#      by: PyQt5 UI code generator 5.3.2
+# Created by: PyQt5 UI code generator 5.6
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -48,6 +47,7 @@ class Ui_MainWindow(object):
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
         self.gridLayout_5 = QtWidgets.QGridLayout(self.tab)
+        self.gridLayout_5.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_5.setObjectName("gridLayout_5")
         self.gridLayout_3 = QtWidgets.QGridLayout()
         self.gridLayout_3.setObjectName("gridLayout_3")
@@ -296,7 +296,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.splitter, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1024, 21))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1024, 19))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -330,26 +330,39 @@ class Ui_MainWindow(object):
         self.openCharacterAction.setObjectName("openCharacterAction")
         self.exportCharacterAction = QtWidgets.QAction(MainWindow)
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap(":/themes/oxygen/22x22/actions/document-export.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon3.addPixmap(QtGui.QPixmap(":/themes/oxygen/22x22/actions/document-import.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.exportCharacterAction.setIcon(icon3)
         self.exportCharacterAction.setObjectName("exportCharacterAction")
         self.importCharacterAction = QtWidgets.QAction(MainWindow)
         icon4 = QtGui.QIcon()
-        icon4.addPixmap(QtGui.QPixmap(":/themes/oxygen/22x22/actions/document-import.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon4.addPixmap(QtGui.QPixmap(":/themes/oxygen/22x22/actions/document-export.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.importCharacterAction.setIcon(icon4)
         self.importCharacterAction.setObjectName("importCharacterAction")
         self.importFromDatabaseAction = QtWidgets.QAction(MainWindow)
         self.importFromDatabaseAction.setObjectName("importFromDatabaseAction")
-        self.menuFile.addAction(self.importFromDatabaseAction)
+        self.deleteCharacterAction = QtWidgets.QAction(MainWindow)
+        icon5 = QtGui.QIcon()
+        icon5.addPixmap(QtGui.QPixmap(":/themes/oxygen/22x22/actions/edit-delete.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.deleteCharacterAction.setIcon(icon5)
+        self.deleteCharacterAction.setObjectName("deleteCharacterAction")
+        self.databaseImportAction = QtWidgets.QAction(MainWindow)
+        icon6 = QtGui.QIcon()
+        icon6.addPixmap(QtGui.QPixmap(":/themes/oxygen/22x22/actions/document-export-table.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.databaseImportAction.setIcon(icon6)
+        self.databaseImportAction.setObjectName("databaseImportAction")
+        self.actionTest = QtWidgets.QAction(MainWindow)
+        self.actionTest.setObjectName("actionTest")
         self.menuFile.addAction(self.quitAction)
         self.menuHelp.addAction(self.aboutAction)
         self.menubar.addAction(self.menuFile.menuAction())
         self.menubar.addAction(self.menuHelp.menuAction())
         self.toolBar.addAction(self.newCharacterAction)
-        self.toolBar.addAction(self.saveCharacterAction)
+        self.toolBar.addAction(self.deleteCharacterAction)
         self.toolBar.addAction(self.openCharacterAction)
-        self.toolBar.addAction(self.exportCharacterAction)
+        self.toolBar.addAction(self.saveCharacterAction)
         self.toolBar.addAction(self.importCharacterAction)
+        self.toolBar.addAction(self.databaseImportAction)
+        self.toolBar.addAction(self.exportCharacterAction)
 
         self.retranslateUi(MainWindow)
         self.tabWidget.setCurrentIndex(0)
@@ -416,6 +429,12 @@ class Ui_MainWindow(object):
         self.importCharacterAction.setText(_translate("MainWindow", "importCharacter"))
         self.importCharacterAction.setToolTip(_translate("MainWindow", "Import a character"))
         self.importCharacterAction.setShortcut(_translate("MainWindow", "Ctrl+I"))
-        self.importFromDatabaseAction.setText(_translate("MainWindow", "Import from Database"))
+        self.importFromDatabaseAction.setText(_translate("MainWindow", "&Import from Database"))
+        self.deleteCharacterAction.setText(_translate("MainWindow", "deleteCharacter"))
+        self.deleteCharacterAction.setToolTip(_translate("MainWindow", "Delete current character"))
+        self.deleteCharacterAction.setShortcut(_translate("MainWindow", "Del"))
+        self.databaseImportAction.setText(_translate("MainWindow", "importFromDatabase"))
+        self.databaseImportAction.setToolTip(_translate("MainWindow", "Import characters from database"))
+        self.actionTest.setText(_translate("MainWindow", "Test"))
 
 import oxygen_rc

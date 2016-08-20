@@ -17,16 +17,7 @@ __author__ = "Johannes Hackbarth"
 class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
     # TODO: Read existing characters from file
     def __init__(self, parent=None):
-        self.foo = character.DogCharacter()
-        self.foo.name = "Foo"
-        self.foo.appearance = "The path of the righteous man is beset on all sides by the iniquities of the selfish" \
-                              " and the tyranny of evil men. Blessed is he who, in the name of charity and good will," \
-                              " shepherds the weak through the valley of darkness, for he is truly his brother's" \
-                              " keeper and the finder of lost children. And I will strike down upon thee with great" \
-                              " vengeance and furious anger those who would attempt to poison and destroy My brothers." \
-                              " And you will know My name is the Lord when I lay My vengeance upon thee."
-        self.foo.calculate_base_skills()
-        self.character_dict = {self.foo.name: self.foo}
+        self.character_dict = {}
         super(CharacterCreator, self).__init__(parent)
         self.setupUi(self)
         self.quitAction.triggered.connect(self.close)
@@ -36,10 +27,9 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         self.saveCharacterAction.triggered.connect(self.save_characters_to_file)
         self.importCharacterAction.triggered.connect(self.import_character)
         self.exportCharacterAction.triggered.connect(self.export_character)
-        self.importFromDatabaseAction.triggered.connect(self.import_from_db)
-        self.characterListWidget.currentItemChanged.connect(self.show_attributes)
-        self.characterListWidget.currentItemChanged.connect(self.show_general)
-        self.characterListWidget.currentItemChanged.connect(self.show_skills)
+        self.databaseImportAction.triggered.connect(self.import_from_db)
+        self.deleteCharacterAction.triggered.connect(self.delete_character)
+        self.characterListWidget.currentItemChanged.connect(self.show_fields)
 
         if os.path.exists(os.path.expanduser("~") + "/.fcdbpath"):
             with open(os.path.expanduser("~") + "/.fcdbpath", "rb") as dbfile:
@@ -64,6 +54,14 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         if new_character.exec_():
             self.add_character_to_dict(new_character.get_character())
 
+    def delete_character(self):
+        choice = QtWidgets.QMessageBox.question(self, 'Delete Character', "Do you want to delete the current character?", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+        if choice == QtWidgets.QMessageBox.Yes:
+            del self.character_dict[self.characterListWidget.currentItem().text()]
+            self.characterListWidget.takeItem(self.characterListWidget.row(self.characterListWidget.currentItem()))
+        else:
+            pass
+
     def import_from_db(self):
         import_path =  QtWidgets.QFileDialog.getOpenFileName(self, 'Open File', ".", "*.fcd")
 
@@ -82,57 +80,56 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
             item = QtWidgets.QListWidgetItem(name)
             self.characterListWidget.addItem(item)
 
-    def show_attributes(self):
-        self.strengthSpinBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).strength)
-        self.perceptionBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).perception)
-        self.enduranceBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).endurance)
-        self.charismaBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).charisma)
-        self.intelligenceBox.setValue(
-            self.character_dict.get(self.characterListWidget.currentItem().text()).intelligence)
-        self.agilityBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).agility)
-        self.luckBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).luck)
+    def show_fields(self):
+        if self.characterListWidget.currentItem() is not None:
+            char = self.character_dict.get(self.characterListWidget.currentItem().text())
+        else:
+            char = character.HumanCharacter()
 
-    def show_general(self):
-        self.nameField.setText(self.character_dict.get(self.characterListWidget.currentItem().text()).name)
-        self.ageField.setText(self.character_dict.get(self.characterListWidget.currentItem().text()).age.__str__())
-        self.sexField.setText(self.character_dict.get(self.characterListWidget.currentItem().text()).sex)
-        self.raceField.setText(self.character_dict.get(self.characterListWidget.currentItem().text()).__str__())
-        self.eyesField.setText(self.character_dict.get(self.characterListWidget.currentItem().text()).eyes)
-        self.hairField.setText(self.character_dict.get(self.characterListWidget.currentItem().text()).hair)
-        self.heightField.setText(
-            self.character_dict.get(self.characterListWidget.currentItem().text()).height.__str__())
-        self.weightField.setText(
-            self.character_dict.get(self.characterListWidget.currentItem().text()).weight.__str__())
-        self.appearanceField.setText(self.character_dict.get(self.characterListWidget.currentItem().text()).appearance)
+        self.strengthSpinBox.setValue(char.strength)
+        self.perceptionBox.setValue(char.perception)
+        self.enduranceBox.setValue(char.endurance)
+        self.charismaBox.setValue(char.charisma)
+        self.intelligenceBox.setValue(char.intelligence)
+        self.agilityBox.setValue(char.agility)
+        self.luckBox.setValue(char.luck)
 
-    def show_skills(self):
-        self.smallGunsBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).small_guns)
-        self.bigGunsBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).big_guns)
-        self.energyWeaponsBox.setValue(
-            self.character_dict.get(self.characterListWidget.currentItem().text()).energy_weapons)
-        self.unarmedBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).unarmed)
-        self.meleeWeaponsBox.setValue(
-            self.character_dict.get(self.characterListWidget.currentItem().text()).melee_weapons)
-        self.throwingBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).throwing)
-        self.explosivesBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).explosives)
-        self.doctorBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).doctor)
-        self.sneakBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).sneak)
-        self.lockpickBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).lockpick)
-        self.trapsBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).traps)
-        self.scienceBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).science)
-        self.repairBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).repair)
-        self.pilotBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).pilot)
-        self.speechBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).speech)
-        self.barterBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).barter)
-        self.gamblingBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).gambling)
-        self.survivalBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).survival)
+        self.nameField.setText(char.name)
+        self.ageField.setText(char.age.__str__())
+        self.sexField.setText(char.sex)
+        self.raceField.setText(char.__str__())
+        self.eyesField.setText(char.eyes)
+        self.hairField.setText(char.hair)
+        self.heightField.setText(char.height.__str__())
+        self.weightField.setText(char.weight.__str__())
+        self.appearanceField.setText(char.appearance)
+
+        self.smallGunsBox.setValue(char.small_guns)
+        self.bigGunsBox.setValue(char.big_guns)
+        self.energyWeaponsBox.setValue(char.energy_weapons)
+        self.unarmedBox.setValue(char.unarmed)
+        self.meleeWeaponsBox.setValue(char.melee_weapons)
+        self.throwingBox.setValue(char.throwing)
+        self.explosivesBox.setValue(char.explosives)
+        self.doctorBox.setValue(char.doctor)
+        self.sneakBox.setValue(char.sneak)
+        self.lockpickBox.setValue(char.lockpick)
+        self.trapsBox.setValue(char.traps)
+        self.scienceBox.setValue(char.science)
+        self.repairBox.setValue(char.repair)
+        self.pilotBox.setValue(char.pilot)
+        self.speechBox.setValue(char.speech)
+        self.barterBox.setValue(char.barter)
+        self.gamblingBox.setValue(char.gambling)
+        self.survivalBox.setValue(char.survival)
 
     def export_character(self):
-        character = self.character_dict.get(self.characterListWidget.currentItem().text())
-        filename = character.name.replace(" ", "").lower() + ".fcf"
-        with open(filename, 'wb') as file:
-            pickle.dump(character, file)
-        self.statusBar().showMessage("Export erfolgreich", 1000)
+        if self.characterListWidget.currentItem() is not None:
+            character = self.character_dict.get(self.characterListWidget.currentItem().text())
+            filename = character.name.replace(" ", "").lower() + ".fcf"
+            with open(filename, 'wb') as file:
+                pickle.dump(character, file)
+            self.statusBar().showMessage("Export erfolgreich", 1000)
 
     def import_character(self):
         name = QtWidgets.QFileDialog.getOpenFileName(self, 'Open File', ".", "*.fcf")

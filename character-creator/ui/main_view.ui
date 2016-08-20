@@ -529,14 +529,13 @@
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>21</height>
+     <height>19</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">
     <property name="title">
      <string>Fi&amp;le</string>
     </property>
-    <addaction name="importFromDatabaseAction"/>
     <addaction name="quitAction"/>
    </widget>
    <widget class="QMenu" name="menuHelp">
@@ -560,10 +559,12 @@
     <bool>false</bool>
    </attribute>
    <addaction name="newCharacterAction"/>
-   <addaction name="saveCharacterAction"/>
+   <addaction name="deleteCharacterAction"/>
    <addaction name="openCharacterAction"/>
-   <addaction name="exportCharacterAction"/>
+   <addaction name="saveCharacterAction"/>
    <addaction name="importCharacterAction"/>
+   <addaction name="databaseImportAction"/>
+   <addaction name="exportCharacterAction"/>
   </widget>
   <action name="quitAction">
    <property name="text">
@@ -628,7 +629,7 @@
   <action name="exportCharacterAction">
    <property name="icon">
     <iconset resource="../resources/icons/oxygen.qrc">
-     <normaloff>:/themes/oxygen/22x22/actions/document-export.png</normaloff>:/themes/oxygen/22x22/actions/document-export.png</iconset>
+     <normaloff>:/themes/oxygen/22x22/actions/document-import.png</normaloff>:/themes/oxygen/22x22/actions/document-import.png</iconset>
    </property>
    <property name="text">
     <string>exportCharacter</string>
@@ -643,7 +644,7 @@
   <action name="importCharacterAction">
    <property name="icon">
     <iconset resource="../resources/icons/oxygen.qrc">
-     <normaloff>:/themes/oxygen/22x22/actions/document-import.png</normaloff>:/themes/oxygen/22x22/actions/document-import.png</iconset>
+     <normaloff>:/themes/oxygen/22x22/actions/document-export.png</normaloff>:/themes/oxygen/22x22/actions/document-export.png</iconset>
    </property>
    <property name="text">
     <string>importCharacter</string>
@@ -657,7 +658,39 @@
   </action>
   <action name="importFromDatabaseAction">
    <property name="text">
-    <string>Import from Database</string>
+    <string>&amp;Import from Database</string>
+   </property>
+  </action>
+  <action name="deleteCharacterAction">
+   <property name="icon">
+    <iconset resource="../resources/icons/oxygen.qrc">
+     <normaloff>:/themes/oxygen/22x22/actions/edit-delete.png</normaloff>:/themes/oxygen/22x22/actions/edit-delete.png</iconset>
+   </property>
+   <property name="text">
+    <string>deleteCharacter</string>
+   </property>
+   <property name="toolTip">
+    <string>Delete current character</string>
+   </property>
+   <property name="shortcut">
+    <string>Del</string>
+   </property>
+  </action>
+  <action name="databaseImportAction">
+   <property name="icon">
+    <iconset resource="../resources/icons/oxygen.qrc">
+     <normaloff>:/themes/oxygen/22x22/actions/document-export-table.png</normaloff>:/themes/oxygen/22x22/actions/document-export-table.png</iconset>
+   </property>
+   <property name="text">
+    <string>importFromDatabase</string>
+   </property>
+   <property name="toolTip">
+    <string>Import characters from database</string>
+   </property>
+  </action>
+  <action name="actionTest">
+   <property name="text">
+    <string>Test</string>
    </property>
   </action>
  </widget>
