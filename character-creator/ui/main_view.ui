@@ -216,7 +216,7 @@
            <x>10</x>
            <y>10</y>
            <width>131</width>
-           <height>199</height>
+           <height>213</height>
           </rect>
          </property>
          <layout class="QGridLayout" name="gridLayout_2">
@@ -228,16 +228,32 @@
            </widget>
           </item>
           <item row="0" column="1">
-           <widget class="QSpinBox" name="strengthSpinBox"/>
+           <widget class="QSpinBox" name="strengthSpinBox">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
           <item row="2" column="1">
-           <widget class="QSpinBox" name="enduranceBox"/>
+           <widget class="QSpinBox" name="enduranceBox">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
           <item row="3" column="1">
-           <widget class="QSpinBox" name="charismaBox"/>
+           <widget class="QSpinBox" name="charismaBox">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
           <item row="4" column="1">
-           <widget class="QSpinBox" name="intelligenceBox"/>
+           <widget class="QSpinBox" name="intelligenceBox">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
           <item row="5" column="0">
            <widget class="QLabel" name="label_4">
@@ -261,7 +277,11 @@
            </widget>
           </item>
           <item row="5" column="1">
-           <widget class="QSpinBox" name="agilityBox"/>
+           <widget class="QSpinBox" name="agilityBox">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
           <item row="6" column="0">
            <widget class="QLabel" name="label_7">
@@ -278,7 +298,11 @@
            </widget>
           </item>
           <item row="1" column="1">
-           <widget class="QSpinBox" name="perceptionBox"/>
+           <widget class="QSpinBox" name="perceptionBox">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
           <item row="2" column="0">
            <widget class="QLabel" name="label_3">
@@ -288,7 +312,11 @@
            </widget>
           </item>
           <item row="6" column="1">
-           <widget class="QSpinBox" name="luckBox"/>
+           <widget class="QSpinBox" name="luckBox">
+            <property name="readOnly">
+             <bool>true</bool>
+            </property>
+           </widget>
           </item>
          </layout>
         </widget>
@@ -501,7 +529,7 @@
      <x>0</x>
      <y>0</y>
      <width>1024</width>
-     <height>19</height>
+     <height>21</height>
     </rect>
    </property>
    <widget class="QMenu" name="menuFile">

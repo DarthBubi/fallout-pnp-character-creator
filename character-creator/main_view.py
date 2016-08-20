@@ -2,7 +2,8 @@
 
 # Form implementation generated from reading ui file 'ui/main_view.ui'
 #
-# Created by: PyQt5 UI code generator 5.6
+# Created: Sat Aug 20 13:53:15 2016
+#      by: PyQt5 UI code generator 5.3.2
 #
 # WARNING! All changes made in this file will be lost!
 
@@ -47,7 +48,6 @@ class Ui_MainWindow(object):
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
         self.gridLayout_5 = QtWidgets.QGridLayout(self.tab)
-        self.gridLayout_5.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_5.setObjectName("gridLayout_5")
         self.gridLayout_3 = QtWidgets.QGridLayout()
         self.gridLayout_3.setObjectName("gridLayout_3")
@@ -121,7 +121,7 @@ class Ui_MainWindow(object):
         self.tab_2 = QtWidgets.QWidget()
         self.tab_2.setObjectName("tab_2")
         self.gridLayoutWidget = QtWidgets.QWidget(self.tab_2)
-        self.gridLayoutWidget.setGeometry(QtCore.QRect(10, 10, 131, 199))
+        self.gridLayoutWidget.setGeometry(QtCore.QRect(10, 10, 131, 213))
         self.gridLayoutWidget.setObjectName("gridLayoutWidget")
         self.gridLayout_2 = QtWidgets.QGridLayout(self.gridLayoutWidget)
         self.gridLayout_2.setContentsMargins(0, 0, 0, 0)
@@ -130,15 +130,19 @@ class Ui_MainWindow(object):
         self.label.setObjectName("label")
         self.gridLayout_2.addWidget(self.label, 0, 0, 1, 1)
         self.strengthSpinBox = QtWidgets.QSpinBox(self.gridLayoutWidget)
+        self.strengthSpinBox.setReadOnly(True)
         self.strengthSpinBox.setObjectName("strengthSpinBox")
         self.gridLayout_2.addWidget(self.strengthSpinBox, 0, 1, 1, 1)
         self.enduranceBox = QtWidgets.QSpinBox(self.gridLayoutWidget)
+        self.enduranceBox.setReadOnly(True)
         self.enduranceBox.setObjectName("enduranceBox")
         self.gridLayout_2.addWidget(self.enduranceBox, 2, 1, 1, 1)
         self.charismaBox = QtWidgets.QSpinBox(self.gridLayoutWidget)
+        self.charismaBox.setReadOnly(True)
         self.charismaBox.setObjectName("charismaBox")
         self.gridLayout_2.addWidget(self.charismaBox, 3, 1, 1, 1)
         self.intelligenceBox = QtWidgets.QSpinBox(self.gridLayoutWidget)
+        self.intelligenceBox.setReadOnly(True)
         self.intelligenceBox.setObjectName("intelligenceBox")
         self.gridLayout_2.addWidget(self.intelligenceBox, 4, 1, 1, 1)
         self.label_4 = QtWidgets.QLabel(self.gridLayoutWidget)
@@ -151,6 +155,7 @@ class Ui_MainWindow(object):
         self.label_6.setObjectName("label_6")
         self.gridLayout_2.addWidget(self.label_6, 4, 0, 1, 1)
         self.agilityBox = QtWidgets.QSpinBox(self.gridLayoutWidget)
+        self.agilityBox.setReadOnly(True)
         self.agilityBox.setObjectName("agilityBox")
         self.gridLayout_2.addWidget(self.agilityBox, 5, 1, 1, 1)
         self.label_7 = QtWidgets.QLabel(self.gridLayoutWidget)
@@ -160,12 +165,14 @@ class Ui_MainWindow(object):
         self.label_2.setObjectName("label_2")
         self.gridLayout_2.addWidget(self.label_2, 1, 0, 1, 1)
         self.perceptionBox = QtWidgets.QSpinBox(self.gridLayoutWidget)
+        self.perceptionBox.setReadOnly(True)
         self.perceptionBox.setObjectName("perceptionBox")
         self.gridLayout_2.addWidget(self.perceptionBox, 1, 1, 1, 1)
         self.label_3 = QtWidgets.QLabel(self.gridLayoutWidget)
         self.label_3.setObjectName("label_3")
         self.gridLayout_2.addWidget(self.label_3, 2, 0, 1, 1)
         self.luckBox = QtWidgets.QSpinBox(self.gridLayoutWidget)
+        self.luckBox.setReadOnly(True)
         self.luckBox.setObjectName("luckBox")
         self.gridLayout_2.addWidget(self.luckBox, 6, 1, 1, 1)
         self.tabWidget.addTab(self.tab_2, "")
@@ -289,7 +296,7 @@ class Ui_MainWindow(object):
         self.gridLayout.addWidget(self.splitter, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1024, 19))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1024, 21))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")

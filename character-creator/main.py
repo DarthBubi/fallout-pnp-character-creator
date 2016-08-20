@@ -69,26 +69,12 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
 
     def show_attributes(self):
         self.strengthSpinBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).strength)
-        self.strengthSpinBox.setMinimum(self.character_dict.get(self.characterListWidget.currentItem().text()).MIN_STRENGTH)
-        self.strengthSpinBox.setMaximum(self.character_dict.get(self.characterListWidget.currentItem().text()).MAX_STRENGTH)
         self.perceptionBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).perception)
-        self.perceptionBox.setMinimum(self.character_dict.get(self.characterListWidget.currentItem().text()).MIN_PERCEPTION)
-        self.perceptionBox.setMaximum(self.character_dict.get(self.characterListWidget.currentItem().text()).MAX_PERCEPTION)
         self.enduranceBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).endurance)
-        self.enduranceBox.setMinimum(self.character_dict.get(self.characterListWidget.currentItem().text()).MIN_ENDURANCE)
-        self.enduranceBox.setMaximum(self.character_dict.get(self.characterListWidget.currentItem().text()).MAX_ENDURANCE)
         self.charismaBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).charisma)
-        self.charismaBox.setMinimum(self.character_dict.get(self.characterListWidget.currentItem().text()).MIN_CHARISMA)
-        self.charismaBox.setMaximum(self.character_dict.get(self.characterListWidget.currentItem().text()).MAX_CHARISMA)
         self.intelligenceBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).intelligence)
-        self.intelligenceBox.setMinimum(self.character_dict.get(self.characterListWidget.currentItem().text()).MIN_INTELLIGENCE)
-        self.intelligenceBox.setMaximum(self.character_dict.get(self.characterListWidget.currentItem().text()).MAX_INTELLIGENCE)
         self.agilityBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).agility)
-        self.agilityBox.setMinimum(self.character_dict.get(self.characterListWidget.currentItem().text()).MIN_AGILITY)
-        self.agilityBox.setMaximum(self.character_dict.get(self.characterListWidget.currentItem().text()).MAX_AGILITY)
         self.luckBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).luck)
-        self.luckBox.setMinimum(self.character_dict.get(self.characterListWidget.currentItem().text()).MIN_LUCK)
-        self.luckBox.setMaximum(self.character_dict.get(self.characterListWidget.currentItem().text()).MAX_LUCK)
 
     def show_general(self):
         self.nameField.setText(self.character_dict.get(self.characterListWidget.currentItem().text()).name)
