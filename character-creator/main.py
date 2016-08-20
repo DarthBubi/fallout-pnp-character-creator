@@ -107,15 +107,6 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         self.gamblingBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).gambling)
         self.survivalBox.setValue(self.character_dict.get(self.characterListWidget.currentItem().text()).survival)
 
-    # TODO: Remove dummy function
-    def new_character_dummy(self):
-        dummy_char = character.HumanCharacter()
-        dummy_char.name = "Dummy Char"
-        dummy_char.calculate_base_skills()
-        dummy_item = QtWidgets.QListWidgetItem(dummy_char.name)
-        self.character_dict.update({dummy_item.text(): dummy_char})
-        self.characterListWidget.addItem(dummy_item)
-
     def export_character(self):
         character = self.character_dict.get(self.characterListWidget.currentItem().text())
         filename = character.name.replace(" ", "").lower() + ".fcf"
