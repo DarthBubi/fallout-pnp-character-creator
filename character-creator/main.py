@@ -18,6 +18,7 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
     # TODO: Read existing characters from file
     def __init__(self, parent=None):
         self.character_dict = {}
+        self.changes = False
         super(CharacterCreator, self).__init__(parent)
         self.setupUi(self)
         self.quitAction.triggered.connect(self.close)
@@ -35,6 +36,7 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
             with open(os.path.expanduser("~") + "/.fcdbpath", "rb") as dbfile:
                 self.dbpath = pickle.load(dbfile)
         else:
+            self.changes = True
             path = QtWidgets.QFileDialog.getExistingDirectory(self, 'Select Database File', os.path.expanduser("~"))
             if path is not "":
                 self.dbpath = path + "/database.fcd"
@@ -48,13 +50,16 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
                 self.character_dict = pickle.load(db)
 
         self.list_characters()
+        self.show_fields()
 
     def new_character(self):
+        self.changes = True
         new_character = NewCharacterDialogue()
         if new_character.exec_():
             self.add_character_to_dict(new_character.get_character())
 
     def delete_character(self):
+        self.changes = True
         choice = QtWidgets.QMessageBox.question(self, 'Delete Character', "Do you want to delete the current character?", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
         if choice == QtWidgets.QMessageBox.Yes:
             del self.character_dict[self.characterListWidget.currentItem().text()]
@@ -63,6 +68,7 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
             pass
 
     def import_from_db(self):
+        self.changes = True
         import_path =  QtWidgets.QFileDialog.getOpenFileName(self, 'Open File', ".", "*.fcd")
 
         if import_path[0] is not "":
@@ -132,6 +138,7 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
             self.statusBar().showMessage("Export erfolgreich", 1000)
 
     def import_character(self):
+        self.changes = True
         name = QtWidgets.QFileDialog.getOpenFileName(self, 'Open File', ".", "*.fcf")
         if name[0] != "":
             with open(name[0], 'rb') as file:
@@ -150,6 +157,7 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
 
     # TODO: Read single character from file and add to character database
     def file_open(self):
+        self.changes = True
         name = QtWidgets.QFileDialog.getOpenFileName(self, 'Open File', ".", "*.fcd")
         if name[0] != "":
             with open(name[0], 'rb') as file:
@@ -160,12 +168,23 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
                 self.list_characters()
 
     def closeEvent(self, event):
-        choice = QtWidgets.QMessageBox.question(self, 'Quit Application', "Do you want to quit the application?",
-                                                QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
-        if choice == QtWidgets.QMessageBox.Yes:
-            event.accept()
+        if self.changes is False:
+            choice = QtWidgets.QMessageBox.question(self, 'Quit Application', "Do you want to quit the application?",
+                    QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+            if choice == QtWidgets.QMessageBox.Yes:
+                event.accept()
+            else:
+                event.ignore()
         else:
-            event.ignore()
+            choice = QtWidgets.QMessageBox.question(self, 'Quit without saving?', "Do you want to quit without saving?",
+                    QtWidgets.QMessageBox.Save | QtWidgets.QMessageBox.Discard | QtWidgets.QMessageBox.Cancel)
+            if choice == QtWidgets.QMessageBox.Save:
+                self.save_characters_to_file()
+                event.accept()
+            elif choice == QtWidgets.QMessageBox.Discard:
+                event.accept()
+            elif choice == QtWidgets.QMessageBox.Cancel:
+                event.ignore()
 
     @staticmethod
     def about():
