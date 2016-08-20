@@ -233,15 +233,16 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
     def handle_race_change(self):
         self.selected_race()
         self.set_attribute_limits()
-        # self.strengthSpinBox.blockSignals(True)
-        # self.perceptionBox.blockSignals(True)
-        # self.enduranceBox.blockSignals(True)
-        # self.charismaBox.blockSignals(True)
-        # self.intelligenceBox.blockSignals(True)
-        # self.agilityBox.blockSignals(True)
-        # self.luckBox.blockSignals(True)
+        self.strengthSpinBox.blockSignals(True)
+        self.perceptionBox.blockSignals(True)
+        self.enduranceBox.blockSignals(True)
+        self.charismaBox.blockSignals(True)
+        self.intelligenceBox.blockSignals(True)
+        self.agilityBox.blockSignals(True)
+        self.luckBox.blockSignals(True)
         self.set_default_attribute_values()
         self.available_skill_points = 5
+        self.availablePointsBox.setText(self.available_skill_points.__str__())
         self.set_skill_values()
 
     def handle_attribute_value_change(self):
@@ -454,7 +455,6 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
         self.character.name = self.nameField.text()
         self.character.age = self.ageField.text()
         self.character.sex = self.sexPicker.currentText()
-        self.character.calculate_base_skills()
         self.accept()
 
     def get_character(self):
