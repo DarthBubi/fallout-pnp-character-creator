@@ -51,6 +51,7 @@ class FalloutCharacter(object):
         self.survival = 0
 
         self.traits = []
+        self.perks = []
 
     def calculate_base_skills(self):
         self.small_guns = calc_skills.calculate_small_guns(self.agility)
@@ -85,14 +86,12 @@ class FalloutCharacter(object):
         return 1 if self.strength < 6 else self.strength - 5
 
     def add_trait(self, trait):
-        if self.traits.__len__() <= 2:
+        if self.traits.__len__() < 2 and not self.traits.__contains__(trait):
             self.traits.append(trait)
-        else:
-            pass
 
     def remove_trait(self, trait):
-        # TODO: maybe catch exception
-        self.traits.remove(trait)
+        if self.traits.__contains__(trait):
+            self.traits.remove(trait)
 
     def calculate_poison_resistance(self):
         return 5 * self.endurance
@@ -111,6 +110,24 @@ class FalloutCharacter(object):
 
     def calculate_healing_rate(self):
         return int(self.endurance/3)
+
+
+class Trait(object):
+
+    def __init__(self, name, effect, races):
+        self.name = name
+        self.effect = effect
+        self.races = races
+
+    def __str__(self, *args, **kwargs):
+        return self.name
+
+
+class Perk(Trait):
+
+    def __init__(self, name, effect, races, level):
+        super(Perk, self).__init__(name, effect, races)
+        self.level = level
 
 
 class HumanCharacter(FalloutCharacter):
