@@ -68,7 +68,7 @@ class FalloutCharacter(object):
         self.science = calc_skills.calculate_science(self.intelligence)
         self.repair = calc_skills.calculate_repair(self.intelligence)
         self.pilot = calc_skills.calculate_pilot(self.agility, self.perception)
-        self.speech = calc_skills.caclulate_speech(self.charisma)
+        self.speech = calc_skills.calculate_speech(self.charisma)
         self.barter = calc_skills.calculate_barter(self.charisma)
         self.gambling = calc_skills.calculate_gambling(self.perception, self.luck)
         self.survival = calc_skills.calculate_survival(self.endurance, self.intelligence)

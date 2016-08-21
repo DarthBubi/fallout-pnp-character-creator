@@ -57,7 +57,7 @@ def calculate_pilot(agility, perception):
     return 2 * (agility + perception)
 
 
-def caclulate_speech(charisma):
+def calculate_speech(charisma):
     return 5 * charisma
 
 
