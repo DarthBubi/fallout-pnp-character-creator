@@ -16,7 +16,6 @@ __author__ = "Johannes Hackbarth"
 
 
 class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
-    # TODO: Read existing characters from file
     def __init__(self, parent=None):
         self.character_dict = {}
         self.changes = False
@@ -26,7 +25,7 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         self.aboutAction.triggered.connect(self.about)
         self.openCharacterAction.triggered.connect(self.file_open)
         self.newCharacterAction.triggered.connect(self.new_character)
-        self.saveCharacterAction.triggered.connect(self.save_characters_to_file)
+        self.saveCharacterAction.triggered.connect(self.file_save)
         self.importCharacterAction.triggered.connect(self.import_character)
         self.exportCharacterAction.triggered.connect(self.export_character)
         self.databaseImportAction.triggered.connect(self.import_from_db)
@@ -52,39 +51,18 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         self.list_characters()
         self.show_fields()
 
-    def new_character(self):
-        self.changes = True
-        new_character = NewCharacterDialogue()
-        if new_character.exec_():
-            self.add_character_to_dict(new_character.get_character())
-
-    def delete_character(self):
-        self.changes = True
-        choice = QtWidgets.QMessageBox.question(self, 'Delete Character', "Do you want to delete the current character?", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
-        if choice == QtWidgets.QMessageBox.Yes:
-            del self.character_dict[self.characterListWidget.currentItem().text()]
-            self.characterListWidget.takeItem(self.characterListWidget.row(self.characterListWidget.currentItem()))
-        else:
-            pass
-
-    def import_from_db(self):
-        self.changes = True
-        import_path =  QtWidgets.QFileDialog.getOpenFileName(self, 'Open File', ".", "*.fcd")
-
-        if import_path[0] is not "":
-            with open(import_path[0], "rb") as import_file:
-                import_db = pickle.load(import_file)
-
-            import_dialog = ImportFromDatabase(import_db, self)
-
-            if import_dialog.exec_():
-                for name in import_dialog.get_characters():
-                    self.add_character_to_dict(import_db.get(name))
-
     def list_characters(self):
         for name in self.character_dict:
             item = QtWidgets.QListWidgetItem(name)
             self.characterListWidget.addItem(item)
+
+    def get_character_dict(self):
+        return self.character_dict
+
+    def add_character_to_dict(self, char):
+        char_item = QtWidgets.QListWidgetItem(char.name)
+        self.character_dict.update({char_item.text(): char})
+        self.characterListWidget.addItem(char_item)
 
     def show_fields(self):
         if self.characterListWidget.currentItem() is not None:
@@ -129,13 +107,20 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         self.gamblingBox.setValue(char.gambling)
         self.survivalBox.setValue(char.survival)
 
-    def export_character(self):
-        if self.characterListWidget.currentItem() is not None:
-            character = self.character_dict.get(self.characterListWidget.currentItem().text())
-            filename = character.name.replace(" ", "").lower() + ".fcf"
-            with open(filename, 'wb') as file:
-                pickle.dump(character, file)
-            self.statusBar().showMessage("Export erfolgreich", 1000)
+    def new_character(self):
+        self.changes = True
+        new_character = NewCharacterDialogue()
+        if new_character.exec_():
+            self.add_character_to_dict(new_character.get_character())
+
+    def delete_character(self):
+        self.changes = True
+        choice = QtWidgets.QMessageBox.question(self, 'Delete Character', "Do you want to delete the current character?", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+        if choice == QtWidgets.QMessageBox.Yes:
+            del self.character_dict[self.characterListWidget.currentItem().text()]
+            self.characterListWidget.takeItem(self.characterListWidget.row(self.characterListWidget.currentItem()))
+        else:
+            pass
 
     def import_character(self):
         self.changes = True
@@ -150,7 +135,29 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
                 self.list_characters()
         self.statusBar().showMessage("Import erfolgreich", 1000)
 
-    def save_characters_to_file(self):
+    def import_from_db(self):
+        self.changes = True
+        import_path =  QtWidgets.QFileDialog.getOpenFileName(self, 'Open File', ".", "*.fcd")
+
+        if import_path[0] is not "":
+            with open(import_path[0], "rb") as import_file:
+                import_db = pickle.load(import_file)
+
+            import_dialog = ImportFromDatabase(import_db, self)
+
+            if import_dialog.exec_():
+                for name in import_dialog.get_characters():
+                    self.add_character_to_dict(import_db.get(name))
+
+    def export_character(self):
+        if self.characterListWidget.currentItem() is not None:
+            character = self.character_dict.get(self.characterListWidget.currentItem().text())
+            filename = character.name.replace(" ", "").lower() + ".fcf"
+            with open(filename, 'wb') as file:
+                pickle.dump(character, file)
+            self.statusBar().showMessage("Export erfolgreich", 1000)
+
+    def file_save(self):
         with open(self.dbpath, "wb") as file:
             pickle.dump(self.character_dict, file)
 
@@ -186,7 +193,7 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
             choice = QtWidgets.QMessageBox.question(self, 'Quit without saving?', "Do you want to quit without saving?",
                     QtWidgets.QMessageBox.Save | QtWidgets.QMessageBox.Discard | QtWidgets.QMessageBox.Cancel)
             if choice == QtWidgets.QMessageBox.Save:
-                self.save_characters_to_file()
+                self.file_save()
                 event.accept()
             elif choice == QtWidgets.QMessageBox.Discard:
                 event.accept()
@@ -198,16 +205,7 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         dialogue = AboutDialogue()
         dialogue.exec_()
 
-    def get_character_dict(self):
-        return self.character_dict
-
-    def add_character_to_dict(self, char):
-        char_item = QtWidgets.QListWidgetItem(char.name)
-        self.character_dict.update({char_item.text(): char})
-        self.characterListWidget.addItem(char_item)
-
 class ImportFromDatabase(QtWidgets.QDialog, import_dialogue.Ui_Dialog):
-
     def __init__(self, import_db, parent=None):
         super(ImportFromDatabase, self).__init__(parent)
         self.setupUi(self)
@@ -231,7 +229,6 @@ class ImportFromDatabase(QtWidgets.QDialog, import_dialogue.Ui_Dialog):
 
     def get_characters(self):
         return self.characters
-
 
 # TODO: Add traits and items to character generation
 class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
@@ -679,19 +676,16 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
     def get_character(self):
         return self.character
 
-
 class AboutDialogue(QtWidgets.QDialog, about_dialogue.Ui_Dialog):
     def __init__(self, parent=None):
         super(AboutDialogue, self).__init__(parent)
         self.setupUi(self)
         self.buttonBox.clicked.connect(self.close)
 
-
 def main():
     app = QtWidgets.QApplication(sys.argv)
     form = CharacterCreator()
     form.show()
     sys.exit(app.exec_())
-
 
 main()
