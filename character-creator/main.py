@@ -284,6 +284,7 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
         self.backButton = QtWidgets.QPushButton("Back")
         self.backButton.clicked.connect(self.previous_page)
         self.buttonBox.addButton(self.backButton, QtWidgets.QDialogButtonBox.ActionRole)
+        self.backButton.setDisabled(True)
         self.buttonBox.addButton(self.nextButton, QtWidgets.QDialogButtonBox.ActionRole)
         self.buttonBox.button(QtWidgets.QDialogButtonBox.Ok).clicked.connect(self.finish_character_creation)
         self.buttonBox.button(QtWidgets.QDialogButtonBox.Cancel).clicked.connect(self.close)
@@ -540,10 +541,16 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
             self.stackedWidget.setCurrentIndex(self.stackedWidget.currentIndex() + 1)
             if self.stackedWidget.currentIndex() == 2:
                 self.set_skill_values()
+            self.backButton.setEnabled(True)
+        if self.stackedWidget.currentIndex() == self.stackedWidget.count() - 1:
+            self.nextButton.setDisabled(True)
 
     def previous_page(self):
         if self.stackedWidget.currentIndex() > 0:
             self.stackedWidget.setCurrentIndex(self.stackedWidget.currentIndex() - 1)
+            self.nextButton.setEnabled(True)
+        if self.stackedWidget.currentIndex() == 0:
+            self.backButton.setDisabled(True)
 
     def selected_race(self):
         if self.racePicker.currentText() == "Deathclaw":
