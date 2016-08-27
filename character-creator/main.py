@@ -1,4 +1,3 @@
-import inspect
 import os
 import pickle
 import sys
@@ -317,16 +316,9 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
     def handle_race_change(self):
         self.selected_race()
         self.set_attribute_limits()
-        self.strengthSpinBox.blockSignals(True)
-        self.perceptionBox.blockSignals(True)
-        self.enduranceBox.blockSignals(True)
-        self.charismaBox.blockSignals(True)
-        self.intelligenceBox.blockSignals(True)
-        self.agilityBox.blockSignals(True)
-        self.luckBox.blockSignals(True)
         self.set_default_attribute_values()
         self.available_skill_points = 5
-        self.availablePointsBox.setText(self.available_skill_points.__str__())
+        self.availablePointsBox.setText(str(self.available_skill_points))
         self.set_skill_values()
         self.list_traits()
 
@@ -484,7 +476,7 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
                 self.heightField.text() and self.weightField.text()
 
     def finish_character_creation(self):
-        if self.validate_fields() and self.tagged_skills.__len__() == 3 and self.available_skill_points == 0:
+        if self.validate_fields() and len(self.tagged_skills) == 3 and self.available_skill_points == 0:
             self.character.name = self.nameField.text()
             self.character.age = self.ageField.text()
             self.character.sex = self.sexPicker.currentText()
