@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'ui/main_view.ui'
+# Form implementation generated from reading ui file '.\ui\main_view.ui'
 #
 # Created by: PyQt5 UI code generator 5.6
 #
@@ -43,6 +43,7 @@ class Ui_MainWindow(object):
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.tabWidget.sizePolicy().hasHeightForWidth())
         self.tabWidget.setSizePolicy(sizePolicy)
+        self.tabWidget.setLocale(QtCore.QLocale(QtCore.QLocale.English, QtCore.QLocale.UnitedKingdom))
         self.tabWidget.setObjectName("tabWidget")
         self.tab = QtWidgets.QWidget()
         self.tab.setObjectName("tab")
@@ -50,6 +51,7 @@ class Ui_MainWindow(object):
         self.gridLayout_5.setContentsMargins(0, 0, 0, 0)
         self.gridLayout_5.setObjectName("gridLayout_5")
         self.gridLayout_3 = QtWidgets.QGridLayout()
+        self.gridLayout_3.setContentsMargins(9, 9, 9, 9)
         self.gridLayout_3.setObjectName("gridLayout_3")
         self.label_8 = QtWidgets.QLabel(self.tab)
         self.label_8.setObjectName("label_8")
@@ -293,10 +295,39 @@ class Ui_MainWindow(object):
         self.survivalBox.setObjectName("survivalBox")
         self.gridLayout_4.addWidget(self.survivalBox, 17, 1, 1, 1)
         self.tabWidget.addTab(self.tab_3, "")
+        self.tab_4 = QtWidgets.QWidget()
+        self.tab_4.setObjectName("tab_4")
+        self.gridLayoutWidget_2 = QtWidgets.QWidget(self.tab_4)
+        self.gridLayoutWidget_2.setGeometry(QtCore.QRect(9, 9, 581, 631))
+        self.gridLayoutWidget_2.setObjectName("gridLayoutWidget_2")
+        self.gridLayout_6 = QtWidgets.QGridLayout(self.gridLayoutWidget_2)
+        self.gridLayout_6.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout_6.setObjectName("gridLayout_6")
+        self.traitListWidget = QtWidgets.QListWidget(self.gridLayoutWidget_2)
+        self.traitListWidget.setObjectName("traitListWidget")
+        self.gridLayout_6.addWidget(self.traitListWidget, 1, 0, 1, 1)
+        self.perkDescriptionBox = QtWidgets.QTextBrowser(self.gridLayoutWidget_2)
+        self.perkDescriptionBox.setObjectName("perkDescriptionBox")
+        self.gridLayout_6.addWidget(self.perkDescriptionBox, 3, 1, 1, 1)
+        self.perkListWidget = QtWidgets.QListWidget(self.gridLayoutWidget_2)
+        self.perkListWidget.setObjectName("perkListWidget")
+        self.gridLayout_6.addWidget(self.perkListWidget, 3, 0, 1, 1)
+        self.perkListLabel = QtWidgets.QLabel(self.gridLayoutWidget_2)
+        self.perkListLabel.setObjectName("perkListLabel")
+        self.gridLayout_6.addWidget(self.perkListLabel, 2, 0, 1, 1)
+        self.traitListLabel = QtWidgets.QLabel(self.gridLayoutWidget_2)
+        self.traitListLabel.setObjectName("traitListLabel")
+        self.gridLayout_6.addWidget(self.traitListLabel, 0, 0, 1, 1)
+        self.traitDescriptionBox = QtWidgets.QTextBrowser(self.gridLayoutWidget_2)
+        self.traitDescriptionBox.setObjectName("traitDescriptionBox")
+        self.gridLayout_6.addWidget(self.traitDescriptionBox, 1, 1, 1, 1)
+        spacerItem1 = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        self.gridLayout_6.addItem(spacerItem1, 4, 0, 1, 1)
+        self.tabWidget.addTab(self.tab_4, "")
         self.gridLayout.addWidget(self.splitter, 0, 0, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
         self.menubar = QtWidgets.QMenuBar(MainWindow)
-        self.menubar.setGeometry(QtCore.QRect(0, 0, 1024, 19))
+        self.menubar.setGeometry(QtCore.QRect(0, 0, 1024, 21))
         self.menubar.setObjectName("menubar")
         self.menuFile = QtWidgets.QMenu(self.menubar)
         self.menuFile.setObjectName("menuFile")
@@ -365,7 +396,7 @@ class Ui_MainWindow(object):
         self.toolBar.addAction(self.exportCharacterAction)
 
         self.retranslateUi(MainWindow)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(3)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def retranslateUi(self, MainWindow):
@@ -408,6 +439,9 @@ class Ui_MainWindow(object):
         self.label_21.setText(_translate("MainWindow", "Melee Weapons"))
         self.label_34.setText(_translate("MainWindow", "Survival"))
         self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_3), _translate("MainWindow", "Skills"))
+        self.perkListLabel.setText(_translate("MainWindow", "Perks"))
+        self.traitListLabel.setText(_translate("MainWindow", "Traits"))
+        self.tabWidget.setTabText(self.tabWidget.indexOf(self.tab_4), _translate("MainWindow", "Traits and Perks"))
         self.menuFile.setTitle(_translate("MainWindow", "Fi&le"))
         self.menuHelp.setTitle(_translate("MainWindow", "Help"))
         self.toolBar.setWindowTitle(_translate("MainWindow", "toolBar"))
