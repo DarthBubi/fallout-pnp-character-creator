@@ -33,7 +33,7 @@
    <item row="0" column="0">
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>1</number>
+      <number>2</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QGridLayout" name="gridLayout_3">
@@ -310,10 +310,18 @@
          </widget>
         </item>
         <item row="6" column="1">
-         <widget class="QSpinBox" name="explosivesBox"/>
+         <widget class="QSpinBox" name="explosivesBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="8" column="1">
-         <widget class="QSpinBox" name="sneakBox"/>
+         <widget class="QSpinBox" name="sneakBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="13" column="0">
          <widget class="QLabel" name="pilotLabel">
@@ -336,7 +344,11 @@
          </widget>
         </item>
         <item row="4" column="1">
-         <widget class="QSpinBox" name="meleeWeaponsBox"/>
+         <widget class="QSpinBox" name="meleeWeaponsBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="12" column="0">
          <widget class="QLabel" name="repairLabel">
@@ -349,7 +361,11 @@
          </widget>
         </item>
         <item row="2" column="1">
-         <widget class="QSpinBox" name="energyWeaponsBox"/>
+         <widget class="QSpinBox" name="energyWeaponsBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="16" column="0">
          <widget class="QLabel" name="gamblingLabel">
@@ -362,7 +378,11 @@
          </widget>
         </item>
         <item row="3" column="1">
-         <widget class="QSpinBox" name="unarmedBox"/>
+         <widget class="QSpinBox" name="unarmedBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="14" column="0">
          <widget class="QLabel" name="speechLabel">
@@ -425,16 +445,32 @@
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QSpinBox" name="smallGunsBox"/>
+         <widget class="QSpinBox" name="smallGunsBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="14" column="1">
-         <widget class="QSpinBox" name="speechBox"/>
+         <widget class="QSpinBox" name="speechBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="1" column="1">
-         <widget class="QSpinBox" name="bigGunsBox"/>
+         <widget class="QSpinBox" name="bigGunsBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="10" column="1">
-         <widget class="QSpinBox" name="trapsBox"/>
+         <widget class="QSpinBox" name="trapsBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="15" column="0">
          <widget class="QLabel" name="barterLabel">
@@ -447,7 +483,11 @@
          </widget>
         </item>
         <item row="17" column="1">
-         <widget class="QSpinBox" name="survivalBox"/>
+         <widget class="QSpinBox" name="survivalBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="6" column="0">
          <widget class="QLabel" name="explosivesLabel">
@@ -460,7 +500,11 @@
          </widget>
         </item>
         <item row="12" column="1">
-         <widget class="QSpinBox" name="repairBox"/>
+         <widget class="QSpinBox" name="repairBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="8" column="0">
          <widget class="QLabel" name="sneakLabel">
@@ -473,10 +517,18 @@
          </widget>
         </item>
         <item row="13" column="1">
-         <widget class="QSpinBox" name="pilotBox"/>
+         <widget class="QSpinBox" name="pilotBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="15" column="1">
-         <widget class="QSpinBox" name="barterBox"/>
+         <widget class="QSpinBox" name="barterBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="bigGunsLabel">
@@ -499,7 +551,11 @@
          </widget>
         </item>
         <item row="16" column="1">
-         <widget class="QSpinBox" name="gamblingBox"/>
+         <widget class="QSpinBox" name="gamblingBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="meleeWeaponsLabel">
@@ -512,10 +568,18 @@
          </widget>
         </item>
         <item row="7" column="1">
-         <widget class="QSpinBox" name="doctorBox"/>
+         <widget class="QSpinBox" name="doctorBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="5" column="1">
-         <widget class="QSpinBox" name="throwingBox"/>
+         <widget class="QSpinBox" name="throwingBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="2" column="0">
          <widget class="QLabel" name="energyWeaponsLabel">
@@ -528,10 +592,18 @@
          </widget>
         </item>
         <item row="11" column="1">
-         <widget class="QSpinBox" name="scienceBox"/>
+         <widget class="QSpinBox" name="scienceBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="9" column="1">
-         <widget class="QSpinBox" name="lockpickBox"/>
+         <widget class="QSpinBox" name="lockpickBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
         </item>
         <item row="3" column="2">
          <widget class="QCheckBox" name="unarmedTag">
