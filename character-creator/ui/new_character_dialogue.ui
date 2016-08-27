@@ -188,6 +188,9 @@
           <property name="text">
            <string>Strength</string>
           </property>
+          <property name="buddy">
+           <cstring>strengthBox</cstring>
+          </property>
          </widget>
         </item>
         <item row="5" column="0">
@@ -195,15 +198,21 @@
           <property name="text">
            <string>Agility</string>
           </property>
+          <property name="buddy">
+           <cstring>agilityBox</cstring>
+          </property>
          </widget>
         </item>
         <item row="0" column="1">
-         <widget class="QSpinBox" name="strengthSpinBox"/>
+         <widget class="QSpinBox" name="strengthBox"/>
         </item>
         <item row="3" column="0">
          <widget class="QLabel" name="charismaLabel">
           <property name="text">
            <string>Charisma</string>
+          </property>
+          <property name="buddy">
+           <cstring>charismaBox</cstring>
           </property>
          </widget>
         </item>
@@ -212,12 +221,18 @@
           <property name="text">
            <string>Luck</string>
           </property>
+          <property name="buddy">
+           <cstring>luckBox</cstring>
+          </property>
          </widget>
         </item>
         <item row="4" column="0">
          <widget class="QLabel" name="intelligenceLabel">
           <property name="text">
            <string>Intelligence</string>
+          </property>
+          <property name="buddy">
+           <cstring>intelligenceBox</cstring>
           </property>
          </widget>
         </item>
@@ -232,12 +247,18 @@
           <property name="text">
            <string>Endurance</string>
           </property>
+          <property name="buddy">
+           <cstring>enduranceBox</cstring>
+          </property>
          </widget>
         </item>
         <item row="1" column="0">
          <widget class="QLabel" name="perceptionLabel">
           <property name="text">
            <string>Perception</string>
+          </property>
+          <property name="buddy">
+           <cstring>perceptionBox</cstring>
           </property>
          </widget>
         </item>
@@ -723,7 +744,7 @@
   <tabstop>weightField</tabstop>
   <tabstop>appearanceField</tabstop>
   <tabstop>intelligenceBox</tabstop>
-  <tabstop>strengthSpinBox</tabstop>
+  <tabstop>strengthBox</tabstop>
   <tabstop>charismaBox</tabstop>
   <tabstop>luckBox</tabstop>
   <tabstop>agilityBox</tabstop>

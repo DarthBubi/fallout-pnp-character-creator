@@ -249,7 +249,7 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
         self.handle_race_change()
         self.availablePointsBox.setText(str(self.available_skill_points))
 
-        self.strengthSpinBox.valueChanged.connect(lambda: self.handle_attribute_value_change(self.strengthLabel.text()))
+        self.strengthBox.valueChanged.connect(lambda: self.handle_attribute_value_change(self.strengthLabel.text()))
         self.perceptionBox.valueChanged.connect(lambda: self.handle_attribute_value_change(self.perceptionLabel.text()))
         self.enduranceBox.valueChanged.connect(lambda: self.handle_attribute_value_change(self.enduranceLabel.text()))
         self.charismaBox.valueChanged.connect(lambda: self.handle_attribute_value_change(self.charismaLabel.text()))
@@ -307,77 +307,29 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
         self.list_traits()
 
     def handle_attribute_value_change(self, attribute):
-        if attribute == self.strengthLabel.text() and self.available_skill_points >= 0:
-            if self.character.strength > self.strengthSpinBox.value():
-                self.available_skill_points += 1
-            elif self.character.strength < self.strengthSpinBox.value() and self.available_skill_points > 0:
-                self.available_skill_points -= 1
-            else:
-                self.strengthSpinBox.setValue(self.character.strength)
-            self.character.strength = self.strengthSpinBox.value()
+        attr = attribute.lower()
+        box = attr + "Box"
 
-        elif attribute == self.perceptionLabel.text() and self.available_skill_points >= 0:
-            if self.character.perception > self.perceptionBox.value():
-                self.available_skill_points += 1
-            elif self.character.perception < self.perceptionBox.value() and self.available_skill_points > 0:
-                self.available_skill_points -= 1
-            else:
-                self.perceptionBox.setValue(self.character.perception)
-            self.character.perception = self.perceptionBox.value()
+        for label in self.findChildren(QtWidgets.QLabel):
+            if isinstance(label.buddy(), QtWidgets.QSpinBox):
+                if attribute == label.text() and self.available_skill_points >= 0:
+                    if getattr(self.character, attr) > getattr(self, box).value():
+                        self.available_skill_points += 1
+                    elif getattr(self.character, attr) < getattr(self, box).value() and self.available_skill_points > 0:
+                        self.available_skill_points -= 1
+                    else:
+                        getattr(self, box).setValue(getattr(self.character, attr))
 
-        elif attribute == self.enduranceLabel.text() and self.available_skill_points >= 0:
-            if self.character.endurance > self.enduranceBox.value():
-                self.available_skill_points += 1
-            elif self.character.endurance < self.enduranceBox.value() and self.available_skill_points > 0:
-                self.available_skill_points -= 1
-            else:
-                self.enduranceBox.setValue(self.character.endurance)
-            self.character.endurance = self.enduranceBox.value()
+                    setattr(self.character, attr, getattr(self, box).value())
 
-        elif attribute == self.charismaLabel.text() and self.available_skill_points >= 0:
-            if self.character.charisma > self.charismaBox.value():
-                self.available_skill_points += 1
-            elif self.character.charisma < self.charismaBox.value() and self.available_skill_points > 0:
-                self.available_skill_points -= 1
-            else:
-                self.charismaBox.setValue(self.character.charisma)
-            self.character.charisma = self.charismaBox.value()
-
-        elif attribute == self.intelligenceLabel.text() and self.available_skill_points >= 0:
-            if self.character.intelligence > self.intelligenceBox.value():
-                self.available_skill_points += 1
-            elif self.character.intelligence < self.intelligenceBox.value() and self.available_skill_points > 0:
-                self.available_skill_points -= 1
-            else:
-                self.intelligenceBox.setValue(self.character.intelligence)
-            self.character.intelligence = self.intelligenceBox.value()
-
-        elif attribute == self.agilityLabel.text() and self.available_skill_points >= 0:
-            if self.character.agility > self.agilityBox.value():
-                self.available_skill_points += 1
-            elif self.character.agility < self.agilityBox.value() and self.available_skill_points > 0:
-                self.available_skill_points -= 1
-            else:
-                self.agilityBox.setValue(self.character.agility)
-            self.character.agility = self.agilityBox.value()
-
-        elif attribute == self.luckLabel.text() and self.available_skill_points >= 0:
-            if self.character.luck > self.luckBox.value():
-                self.available_skill_points += 1
-            elif self.character.luck < self.luckBox.value() and self.available_skill_points > 0:
-                self.available_skill_points -= 1
-            else:
-                self.luckBox.setValue(self.character.luck)
-            self.character.luck = self.luckBox.value()
-
-        self.availablePointsBox.setText(str(self.available_skill_points))
+                self.availablePointsBox.setText(str(self.available_skill_points))
 
     def handle_skill_tag_change(self, skill):
-        for label in self.findChildren(QtWidgets.QLabel):
-            attr = skill.replace(" ", "_").lower()
-            components = attr.split('_')
-            box = components[0] + "".join(x.title() for x in components[1:]) + "Box"
+        attr = skill.replace(" ", "_").lower()
+        components = attr.split('_')
+        box = components[0] + "".join(x.title() for x in components[1:]) + "Box"
 
+        for label in self.findChildren(QtWidgets.QLabel):
             if isinstance(label.buddy(), QtWidgets.QCheckBox):
 
                 if skill == label.text() and label.buddy().isChecked() and len(self.tagged_skills) < 3:
@@ -427,31 +379,17 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
             self.character = character.SuperMutantCharacter()
 
     def set_default_attribute_values(self):
-        self.strengthSpinBox.blockSignals(True)
-        self.strengthSpinBox.setValue(self.character.strength)
-        self.strengthSpinBox.blockSignals(False)
-        self.perceptionBox.blockSignals(True)
+        self.strengthBox.setValue(self.character.strength)
         self.perceptionBox.setValue(self.character.perception)
-        self.perceptionBox.blockSignals(False)
-        self.enduranceBox.blockSignals(True)
         self.enduranceBox.setValue(self.character.endurance)
-        self.enduranceBox.blockSignals(False)
-        self.charismaBox.blockSignals(True)
         self.charismaBox.setValue(self.character.charisma)
-        self.charismaBox.blockSignals(False)
-        self.intelligenceBox.blockSignals(True)
         self.intelligenceBox.setValue(self.character.intelligence)
-        self.intelligenceBox.blockSignals(False)
-        self.agilityBox.blockSignals(True)
         self.agilityBox.setValue(self.character.agility)
-        self.agilityBox.blockSignals(False)
-        self.luckBox.blockSignals(True)
         self.luckBox.setValue(self.character.luck)
-        self.luckBox.blockSignals(False)
 
     def set_attribute_limits(self):
-        self.strengthSpinBox.setMinimum(self.character.MIN_STRENGTH)
-        self.strengthSpinBox.setMaximum(self.character.MAX_STRENGTH)
+        self.strengthBox.setMinimum(self.character.MIN_STRENGTH)
+        self.strengthBox.setMaximum(self.character.MAX_STRENGTH)
         self.perceptionBox.setMinimum(self.character.MIN_PERCEPTION)
         self.perceptionBox.setMaximum(self.character.MAX_PERCEPTION)
         self.enduranceBox.setMinimum(self.character.MIN_ENDURANCE)
