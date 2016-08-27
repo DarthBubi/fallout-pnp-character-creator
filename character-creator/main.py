@@ -31,6 +31,8 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         self.databaseImportAction.triggered.connect(self.import_from_db)
         self.deleteCharacterAction.triggered.connect(self.delete_character)
         self.characterListWidget.currentItemChanged.connect(self.show_fields)
+        self.characterListWidget.currentItemChanged.connect(self.list_traits)
+        self.traitListWidget.currentItemChanged.connect(self.show_trait_description)
 
         if os.path.exists(os.path.expanduser("~") + "/.fcdbpath"):
             with open(os.path.expanduser("~") + "/.fcdbpath", "rb") as dbfile:
@@ -50,6 +52,9 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
 
         self.list_characters()
         self.show_fields()
+        self.list_traits()
+        self.show_trait_description()
+        self.tabWidget.setCurrentIndex(0)
 
     def list_characters(self):
         for name in self.character_dict:
@@ -63,6 +68,25 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         char_item = QtWidgets.QListWidgetItem(char.name)
         self.character_dict.update({char_item.text(): char})
         self.characterListWidget.addItem(char_item)
+
+    def list_traits(self):
+        if self.characterListWidget.currentItem() is not None:
+            char = self.character_dict.get(self.characterListWidget.currentItem().text())
+            if char.traits:
+                for trait in char.traits:
+                    self.traitListWidget.addItem(trait.name)
+            else:
+                self.traitListWidget.clear()
+
+    def show_trait_description(self):
+        if self.characterListWidget.currentItem() is not None:
+            char = self.character_dict.get(self.characterListWidget.currentItem().text())
+            if char.traits:
+                for trait in char.traits:
+                    if trait.name == self.traitListWidget.currentItem().text():
+                        self.traitDescriptionBox.setText(trait.effect)
+            else:
+                self.traitDescriptionBox.clear()
 
     def show_fields(self):
         if self.characterListWidget.currentItem() is not None:
@@ -428,7 +452,7 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
     def list_traits(self):
         self.traitListWidget.clear()
         for trait in config.TRAIT_LIST:
-            if self.character.__str__() in trait.races:
+            if str(self.character) in trait.races:
                 item = QtWidgets.QListWidgetItem(trait.name)
                 item.setFlags(item.flags() | QtCore.Qt.ItemIsUserCheckable)
                 item.setCheckState(QtCore.Qt.Unchecked)
@@ -441,24 +465,19 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
                 break
 
     def handle_trait_check(self):
-        i = 0
-        while self.traitListWidget.item(i):
-            if not self.traitListWidget.item(i).checkState():
-                for trait in config.TRAIT_LIST:
-                    if self.traitListWidget.item(i).text() == trait.name and self.character.traits.__contains__(trait):
-                        self.character.remove_trait(trait)
-                        break
-            elif self.traitListWidget.item(i).checkState() and self.character.traits.__len__() < 2:
-                for trait in config.TRAIT_LIST:
-                    if self.traitListWidget.item(i).text() == trait.name:
+        for i in range(self.traitListWidget.count()):
+            for trait in config.TRAIT_LIST:
+                if self.traitListWidget.item(i).checkState() and self.traitListWidget.item(i).text() == trait.name:
+                    if len(self.character.traits) < 2:
                         self.character.add_trait(trait)
                         break
-            elif self.traitListWidget.item(i).checkState() and self.character.traits.__len__() == 2:
-                for trait in config.TRAIT_LIST:
-                    if self.traitListWidget.item(i).text() == trait.name and not self.character.traits.__contains__(trait):
+                    elif len(self.character.traits) == 2 and trait not in self.character.traits:
                         self.traitListWidget.item(i).setCheckState(QtCore.Qt.Unchecked)
 
-            i += 1
+                elif not self.traitListWidget.item(i).checkState() and self.traitListWidget.item(i).text() == \
+                        trait.name and trait in self.character.traits:
+                    self.character.remove_trait(trait)
+                    break
 
     def validate_fields(self):
         return self.nameField.text() and self.ageField.text() and self.eyesField.text() and self.hairField.text() and \
