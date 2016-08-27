@@ -1,16 +1,16 @@
+import inspect
+import os
+import pickle
 import sys
 
-from PyQt5 import QtWidgets
-from PyQt5 import QtCore
-import pickle
-import os
+from PyQt5 import QtWidgets, QtCore
 
-import character
-import main_view
 import about_dialogue
-import new_character_dialogue
-import import_dialogue
+import character
 import config
+import import_dialogue
+import main_view
+import new_character_dialogue
 
 __author__ = "Johannes Hackbarth"
 
@@ -372,169 +372,27 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
 
         self.availablePointsBox.setText(str(self.available_skill_points))
 
-    # TODO: Make all not checked tags uncheckable if limit is reached
     def handle_skill_tag_change(self, skill):
-        if skill == self.smallGunsLabel.text() and self.smallGunsTag.isChecked() and self.tagged_skills.__len__() < 3:
-            self.character.small_guns += 20
-            self.smallGunsBox.setValue(self.character.small_guns)
-            self.tagged_skills.append(skill)
-        elif skill == self.smallGunsLabel.text() and self.tagged_skills.__contains__(skill):
-            self.character.small_guns -= 20
-            self.smallGunsBox.setValue(self.character.small_guns)
-            self.tagged_skills.remove(skill)
+        for label in self.findChildren(QtWidgets.QLabel):
+            attr = skill.replace(" ", "_").lower()
+            components = attr.split('_')
+            box = components[0] + "".join(x.title() for x in components[1:]) + "Box"
 
-        elif skill == self.bigGunsLabel.text() and self.bigGunsTag.isChecked() and self.tagged_skills.__len__() < 3:
-            self.character.big_guns += 20
-            self.bigGunsBox.setValue(self.character.big_guns)
-            self.tagged_skills.append(skill)
-        elif skill == self.bigGunsLabel.text() and self.tagged_skills.__contains__(skill):
-            self.character.big_guns -= 20
-            self.bigGunsBox.setValue(self.character.big_guns)
-            self.tagged_skills.remove(skill)
+            if isinstance(label.buddy(), QtWidgets.QCheckBox):
 
-        elif skill == self.energyWeaponsLabel.text() and self.energyWeaponsTag.isChecked() and self.tagged_skills.__len__() < 3:
-            self.character.energy_weapons += 20
-            self.energyWeaponsBox.setValue(self.character.energy_weapons)
-            self.tagged_skills.append(skill)
-        elif skill == self.energyWeaponsLabel.text() and self.tagged_skills.__contains__(skill):
-            self.character.energy_weapons -= 20
-            self.energyWeaponsBox.setValue(self.character.energy_weapons)
-            self.tagged_skills.remove(skill)
+                if skill == label.text() and label.buddy().isChecked() and len(self.tagged_skills) < 3:
+                    setattr(self.character, attr, getattr(self.character, attr) + 20)
+                    getattr(self, box).setValue(getattr(self.character, attr))
+                    self.tagged_skills.append(skill)
 
-        elif skill == self.unarmedLabel.text() and self.unarmedTag.isChecked() and self.tagged_skills.__len__() < 3:
-            self.character.unarmed += 20
-            self.unarmedBox.setValue(self.character.unarmed)
-            self.tagged_skills.append(skill)
-        elif skill == self.unarmedLabel.text() and self.tagged_skills.__contains__(skill):
-            self.character.unarmed -= 20
-            self.unarmedBox.setValue(self.character.unarmed)
-            self.tagged_skills.remove(skill)
+                elif skill == label.text() and skill in self.tagged_skills:
+                    setattr(self.character, attr, getattr(self.character, attr) - 20)
+                    getattr(self, box).setValue(getattr(self.character, attr))
+                    self.tagged_skills.remove(skill)
 
-        elif skill == self.meleeWeaponsLabel.text() and self.meleeWeaponsTag.isChecked() and self.tagged_skills.__len__() < 3:
-            self.character.melee_weapons += 20
-            self.meleeWeaponsBox.setValue(self.character.melee_weapons)
-            self.tagged_skills.append(skill)
-        elif skill == self.meleeWeaponsLabel.text() and self.tagged_skills.__contains__(skill):
-            self.character.melee_weapons -= 20
-            self.meleeWeaponsBox.setValue(self.character.melee_weapons)
-            self.tagged_skills.remove(skill)
-
-        elif skill == self.throwingLabel.text() and self.throwingTag.isChecked() and self.tagged_skills.__len__() < 3:
-            self.character.throwing += 20
-            self.throwingBox.setValue(self.character.throwing)
-            self.tagged_skills.append(skill)
-        elif skill == self.throwingLabel.text() and self.tagged_skills.__contains__(skill):
-            self.character.throwing -= 20
-            self.throwingBox.setValue(self.character.throwing)
-            self.tagged_skills.remove(skill)
-
-        elif skill == self.explosivesLabel.text() and self.explosivesTag.isChecked() and self.tagged_skills.__len__() < 3:
-            self.character.explosives += 20
-            self.explosivesBox.setValue(self.character.explosives)
-            self.tagged_skills.append(skill)
-        elif skill == self.explosivesLabel.text() and self.tagged_skills.__contains__(skill):
-            self.character.explosives -= 20
-            self.explosivesBox.setValue(self.character.explosives)
-            self.tagged_skills.remove(skill)
-
-        elif skill == self.doctorLabel.text() and self.doctorTag.isChecked() and self.tagged_skills.__len__() < 3:
-            self.character.doctor += 20
-            self.doctorBox.setValue(self.character.doctor)
-            self.tagged_skills.append(skill)
-        elif skill == self.doctorLabel.text() and self.tagged_skills.__contains__(skill):
-            self.character.doctor -= 20
-            self.doctorBox.setValue(self.character.doctor)
-            self.tagged_skills.remove(skill)
-
-        elif skill == self.sneakLabel.text() and self.sneakTag.isChecked() and self.tagged_skills.__len__() < 3:
-            self.character.sneak += 20
-            self.sneakBox.setValue(self.character.sneak)
-            self.tagged_skills.append(skill)
-        elif skill == self.sneakLabel.text() and self.tagged_skills.__contains__(skill):
-            self.character.sneak -= 20
-            self.sneakBox.setValue(self.character.sneak)
-            self.tagged_skills.remove(skill)
-
-        elif skill == self.lockpickLabel.text() and self.lockpickTag.isChecked() and self.tagged_skills.__len__() < 3:
-            self.character.lockpick += 20
-            self.lockpickBox.setValue(self.character.lockpick)
-            self.tagged_skills.append(skill)
-        elif skill == self.lockpickLabel.text() and self.tagged_skills.__contains__(skill):
-            self.character.lockpick -= 20
-            self.lockpickBox.setValue(self.character.lockpick)
-            self.tagged_skills.remove(skill)
-
-        elif skill == self.trapsLabel.text() and self.trapsTag.isChecked() and self.tagged_skills.__len__() < 3:
-            self.character.traps += 20
-            self.trapsBox.setValue(self.character.traps)
-            self.tagged_skills.append(skill)
-        elif skill == self.trapsLabel.text() and self.tagged_skills.__contains__(skill):
-            self.character.traps -= 20
-            self.trapsBox.setValue(self.character.traps)
-            self.tagged_skills.remove(skill)
-
-        elif skill == self.scienceLabel.text() and self.scienceTag.isChecked() and self.tagged_skills.__len__() < 3:
-            self.character.science += 20
-            self.scienceBox.setValue(self.character.science)
-            self.tagged_skills.append(skill)
-        elif skill == self.scienceLabel.text() and self.tagged_skills.__contains__(skill):
-            self.character.science -= 20
-            self.scienceBox.setValue(self.character.science)
-            self.tagged_skills.remove(skill)
-
-        elif skill == self.repairLabel.text() and self.repairTag.isChecked() and self.tagged_skills.__len__() < 3:
-            self.character.repair += 20
-            self.repairBox.setValue(self.character.repair)
-            self.tagged_skills.append(skill)
-        elif skill == self.repairLabel.text() and self.tagged_skills.__contains__(skill):
-            self.character.repair -= 20
-            self.repairBox.setValue(self.character.repair)
-            self.tagged_skills.remove(skill)
-
-        elif skill == self.pilotLabel.text() and self.pilotTag.isChecked() and self.tagged_skills.__len__() < 3:
-            self.character.pilot += 20
-            self.pilotBox.setValue(self.character.pilot)
-            self.tagged_skills.append(skill)
-        elif skill == self.pilotLabel.text() and self.tagged_skills.__contains__(skill):
-            self.character.pilot -= 20
-            self.pilotBox.setValue(self.character.pilot)
-            self.tagged_skills.remove(skill)
-
-        elif skill == self.speechLabel.text() and self.speechTag.isChecked() and self.tagged_skills.__len__() < 3:
-            self.character.speech += 20
-            self.speechBox.setValue(self.character.speech)
-            self.tagged_skills.append(skill)
-        elif skill == self.speechLabel.text() and self.tagged_skills.__contains__(skill):
-            self.character.speech -= 20
-            self.speechBox.setValue(self.character.speech)
-            self.tagged_skills.remove(skill)
-
-        elif skill == self.barterLabel.text() and self.barterTag.isChecked() and self.tagged_skills.__len__() < 3:
-            self.character.barter += 20
-            self.barterBox.setValue(self.character.barter)
-            self.tagged_skills.append(skill)
-        elif skill == self.barterLabel.text() and self.tagged_skills.__contains__(skill):
-            self.character.barter -= 20
-            self.barterBox.setValue(self.character.barter)
-            self.tagged_skills.remove(skill)
-
-        elif skill == self.gamblingLabel.text() and self.gamblingTag.isChecked() and self.tagged_skills.__len__() < 3:
-            self.character.gambling += 20
-            self.gamblingBox.setValue(self.character.gambling)
-            self.tagged_skills.append(skill)
-        elif skill == self.gamblingLabel.text() and self.tagged_skills.__contains__(skill):
-            self.character.gambling -= 20
-            self.gamblingBox.setValue(self.character.gambling)
-            self.tagged_skills.remove(skill)
-
-        elif skill == self.survivalLabel.text() and self.survivalTag.isChecked() and self.tagged_skills.__len__() < 3:
-            self.character.survival += 20
-            self.survivalBox.setValue(self.character.survival)
-            self.tagged_skills.append(skill)
-        elif skill == self.survivalLabel.text() and self.tagged_skills.__contains__(skill):
-            self.character.survival -= 20
-            self.survivalBox.setValue(self.character.survival)
-            self.tagged_skills.remove(skill)
+                else:
+                    if label.buddy().isChecked() and skill not in self.tagged_skills and skill == label.text():
+                        label.buddy().setCheckState(QtCore.Qt.Unchecked)
 
     def next_page(self):
         if self.stackedWidget.currentIndex() < self.stackedWidget.count():
