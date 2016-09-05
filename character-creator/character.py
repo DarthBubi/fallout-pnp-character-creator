@@ -114,10 +114,13 @@ class FalloutCharacter(object):
 
 class Trait(object):
 
-    def __init__(self, name, effect, races):
+    def __init__(self, name, effect, races, attr_mod=0, skill_mod=0, misc_mod=0):
         self.name = name
         self.effect = effect
         self.races = races
+        self.attribute_mod = attr_mod
+        self.skill_mod = skill_mod
+        self.misc_mod = misc_mod
 
     def __str__(self, *args, **kwargs):
         return self.name
@@ -125,8 +128,8 @@ class Trait(object):
 
 class Perk(Trait):
 
-    def __init__(self, name, effect, races, level):
-        super(Perk, self).__init__(name, effect, races)
+    def __init__(self, name, effect, races, level=0, attr_mod=0, skill_mod=0, misc_mod=0):
+        super(Perk, self).__init__(name, effect, races, attr_mod, skill_mod, misc_mod)
         self.level = level
 
 
