@@ -138,7 +138,9 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
 
     def delete_character(self):
         self.changes = True
-        choice = QtWidgets.QMessageBox.question(self, 'Delete Character', "Do you want to delete the current character?", QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+        choice = QtWidgets.QMessageBox.question(self, 'Delete Character',
+                                                QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
+                                                "Do you want to delete the current character?")
         if choice == QtWidgets.QMessageBox.Yes:
             del self.character_dict[self.characterListWidget.currentItem().text()]
             self.characterListWidget.takeItem(self.characterListWidget.row(self.characterListWidget.currentItem()))
@@ -156,11 +158,11 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
                 self.characterListWidget.clear()
                 self.characterListWidget.blockSignals(False)
                 self.list_characters()
-        self.statusBar().showMessage("Import erfolgreich", 1000)
+        self.statusBar().showMessage("Import successful", 1000)
 
     def import_from_db(self):
         self.changes = True
-        import_path =  QtWidgets.QFileDialog.getOpenFileName(self, 'Open File', ".", "*.fcd")
+        import_path = QtWidgets.QFileDialog.getOpenFileName(self, 'Open File', ".", "*.fcd")
 
         if import_path[0] is not "":
             with open(import_path[0], "rb") as import_file:
@@ -178,7 +180,7 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
             filename = character.name.replace(" ", "").lower() + ".fcf"
             with open(filename, 'wb') as file:
                 pickle.dump(character, file)
-            self.statusBar().showMessage("Export erfolgreich", 1000)
+            self.statusBar().showMessage("Export successful", 1000)
 
     def file_save(self):
         with open(self.dbpath, "wb") as file:
@@ -188,7 +190,7 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
             pickle.dump(self.dbpath, dbfile)
 
         self.changes = False
-        self.statusBar().showMessage("Speichern erfolgreich", 1000)
+        self.statusBar().showMessage("Save successful", 1000)
 
     def file_open(self):
         self.changes = True
@@ -207,14 +209,15 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
     def closeEvent(self, event):
         if self.changes is False:
             choice = QtWidgets.QMessageBox.question(self, 'Quit Application', "Do you want to quit the application?",
-                    QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
+                                                    QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
             if choice == QtWidgets.QMessageBox.Yes:
                 event.accept()
             else:
                 event.ignore()
         else:
             choice = QtWidgets.QMessageBox.question(self, 'Quit without saving?', "Do you want to quit without saving?",
-                    QtWidgets.QMessageBox.Save | QtWidgets.QMessageBox.Discard | QtWidgets.QMessageBox.Cancel)
+                                                    QtWidgets.QMessageBox.Save | QtWidgets.QMessageBox.Discard
+                                                    | QtWidgets.QMessageBox.Cancel)
             if choice == QtWidgets.QMessageBox.Save:
                 self.file_save()
                 event.accept()
@@ -227,6 +230,7 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
     def about():
         dialogue = AboutDialogue()
         dialogue.exec_()
+
 
 class ImportFromDatabase(QtWidgets.QDialog, import_dialogue.Ui_Dialog):
     def __init__(self, import_db, parent=None):
@@ -537,16 +541,15 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
     def get_character(self):
         return self.character
 
+
 class AboutDialogue(QtWidgets.QDialog, about_dialogue.Ui_Dialog):
     def __init__(self, parent=None):
         super(AboutDialogue, self).__init__(parent)
         self.setupUi(self)
         self.buttonBox.clicked.connect(self.close)
 
-def main():
+if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     form = CharacterCreator()
     form.show()
     sys.exit(app.exec_())
-
-main()
