@@ -1,17 +1,19 @@
 # fallout-pnp-character-creator
+
+[![Code Climate](https://codeclimate.com/github/DarthBubi/fallout-pnp-character-creator/badges/gpa.svg)](https://codeclimate.com/github/DarthBubi/fallout-pnp-character-creator)
+
 A tool to create and edit fallout pen and paper characters.
 
 ## Prerequisites
 
 This application requires `python3`. On Debian/Ubuntu based
-distribution you need the following packages to run the application:
+distributions you need the following packages to run the application:
 
 
 ```
 pyqt5-dev
 pyqt5-dev-tools
 python3-pyqt5
-
 ```
 
 ## Setup
