@@ -6,6 +6,7 @@ ALL_RACES = {"Deathclaw", "Dog", "Ghoul", "Half Mutant", "Human", "Robot", "Supe
 ANIMALS = {"Deathclaw", "Dog"}
 ROBOTS = {"Robot"}
 
+# TODO: Add all effects to traits
 TRAIT_LIST = [
     Trait("Fast Metabolism",
           "Your metabolic rate is twice normal. This means that you are much less resistant"
@@ -17,7 +18,8 @@ TRAIT_LIST = [
           "A little slower, but a little bigger. You may not hit as often, but they will feel it when you do! "
           "Your total action points are lowered, but your Strength is increased. You get a 2 point bonus to Strength,"
           " but loose 2 Action Points.",
-          ALL_RACES),
+          ALL_RACES,
+          2, "strength"),
     Trait("Small Frame",
           "You are not quite as big as everyone else, but that never slowed you down. You can't carry as much, but you"
           " are more agile. You get a 1 point bonus to Agility, but your Carry Weight is only 15 lbs Y Strength.",
