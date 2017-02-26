@@ -83,7 +83,7 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
             if char.traits:
                 for trait in char.traits:
                     if trait.name == self.traitListWidget.currentItem().text():
-                        self.traitDescriptionBox.setText(trait.effect)
+                        self.traitDescriptionBox.setText(trait.description)
             else:
                 self.traitDescriptionBox.clear()
 
@@ -93,13 +93,13 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
         else:
             char = character.HumanCharacter()
 
-        self.strengthSpinBox.setValue(char.strength)
-        self.perceptionBox.setValue(char.perception)
-        self.enduranceBox.setValue(char.endurance)
-        self.charismaBox.setValue(char.charisma)
-        self.intelligenceBox.setValue(char.intelligence)
-        self.agilityBox.setValue(char.agility)
-        self.luckBox.setValue(char.luck)
+        self.strengthSpinBox.setValue(char.strength[0])
+        self.perceptionBox.setValue(char.perception[0])
+        self.enduranceBox.setValue(char.endurance[0])
+        self.charismaBox.setValue(char.charisma[0])
+        self.intelligenceBox.setValue(char.intelligence[0])
+        self.agilityBox.setValue(char.agility[0])
+        self.luckBox.setValue(char.luck[0])
 
         self.nameField.setText(char.name)
         self.ageField.setText(char.age.__str__())
@@ -253,14 +253,14 @@ class ImportFromDatabase(QtWidgets.QDialog, import_dialogue.Ui_Dialog):
     def get_characters(self):
         return self.characters
 
-# TODO: Add traits and items to character generation
+
+# TODO: Add items to character generation
 class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
     def __init__(self, parent=None):
         super(NewCharacterDialogue, self).__init__(parent)
         self.setupUi(self)
 
         self.available_skill_points = 5  # magic number
-        self.tagged_skills = []
 
         self.sexPicker.clear()
         self.sexPicker.addItems(["male", "female"])
@@ -276,7 +276,8 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
         self.perceptionBox.valueChanged.connect(lambda: self.handle_attribute_value_change(self.perceptionLabel.text()))
         self.enduranceBox.valueChanged.connect(lambda: self.handle_attribute_value_change(self.enduranceLabel.text()))
         self.charismaBox.valueChanged.connect(lambda: self.handle_attribute_value_change(self.charismaLabel.text()))
-        self.intelligenceBox.valueChanged.connect(lambda: self.handle_attribute_value_change(self.intelligenceLabel.text()))
+        self.intelligenceBox.valueChanged.connect(
+            lambda: self.handle_attribute_value_change(self.intelligenceLabel.text()))
         self.agilityBox.valueChanged.connect(lambda: self.handle_attribute_value_change(self.agilityLabel.text()))
         self.luckBox.valueChanged.connect(lambda: self.handle_attribute_value_change(self.luckLabel.text()))
 
@@ -301,6 +302,13 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
 
         self.traitListWidget.currentItemChanged.connect(self.show_trait_description)
         self.traitListWidget.itemChanged.connect(self.handle_trait_check)
+        self.traitListWidget.itemChanged.connect(lambda: self.handle_attribute_value_change(self.strengthLabel.text()))
+        self.traitListWidget.itemChanged.connect(lambda: self.handle_attribute_value_change(self.perceptionLabel.text()))
+        self.traitListWidget.itemChanged.connect(lambda: self.handle_attribute_value_change(self.enduranceLabel.text()))
+        self.traitListWidget.itemChanged.connect(lambda: self.handle_attribute_value_change(self.charismaLabel.text()))
+        self.traitListWidget.itemChanged.connect(lambda: self.handle_attribute_value_change(self.intelligenceLabel.text()))
+        self.traitListWidget.itemChanged.connect(lambda: self.handle_attribute_value_change(self.agilityLabel.text()))
+        self.traitListWidget.itemChanged.connect(lambda: self.handle_attribute_value_change(self.luckLabel.text()))
 
         self.nextButton = QtWidgets.QPushButton("Next")
         self.nextButton.clicked.connect(self.next_page)
@@ -322,45 +330,55 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
         self.set_skill_values()
         self.list_traits()
 
+    # TODO: Check total value against maximum/minimum value
     def handle_attribute_value_change(self, attribute):
         attr = attribute.lower()
         box = attr + "Box"
+        mod_box = attr + "ModBox"
+        total_box = attr + "TotalBox"
 
         for label in self.findChildren(QtWidgets.QLabel):
             if isinstance(label.buddy(), QtWidgets.QSpinBox):
                 if attribute == label.text() and self.available_skill_points >= 0:
-                    if getattr(self.character, attr) > getattr(self, box).value():
+                    attr_vals = getattr(self.character, attr)
+                    if getattr(self.character, attr)[0] > getattr(self, box).value():
                         self.available_skill_points += 1
-                    elif getattr(self.character, attr) < getattr(self, box).value() and self.available_skill_points > 0:
+                    elif getattr(self.character, attr)[0] < getattr(self, box).value() and \
+                                    self.available_skill_points > 0:
                         self.available_skill_points -= 1
                     else:
-                        getattr(self, box).setValue(getattr(self.character, attr))
+                        getattr(self, box).setValue(getattr(self.character, attr)[0])
 
-                    setattr(self.character, attr, getattr(self, box).value())
+                    setattr(self.character, attr, (getattr(self, box).value(), attr_vals[1]))
+                    getattr(self, mod_box).setValue(sum(getattr(self.character, attr)[1].values()))
+                    getattr(self, total_box).setValue(self.character.total_value(getattr(self.character, attr)))
 
                 self.availablePointsBox.setText(str(self.available_skill_points))
 
+    # TODO: Update attribute view
     def handle_skill_tag_change(self, skill):
         attr = skill.replace(" ", "_").lower()
         components = attr.split('_')
         box = components[0] + "".join(x.title() for x in components[1:]) + "Box"
 
         for label in self.findChildren(QtWidgets.QLabel):
-            if isinstance(label.buddy(), QtWidgets.QCheckBox):
+            if isinstance(label.buddy(), QtWidgets.QCheckBox) and skill == label.text():
 
-                if skill == label.text() and label.buddy().isChecked() and len(self.tagged_skills) < 3:
+                if label.buddy().isChecked() and len(self.character.tagged_skills) < self.character.taggable_skills():
                     setattr(self.character, attr, getattr(self.character, attr) + 20)
                     getattr(self, box).setValue(getattr(self.character, attr))
-                    self.tagged_skills.append(skill)
+                    self.character.tagged_skills.append(skill)
+                    break
 
-                elif skill == label.text() and skill in self.tagged_skills:
+                elif skill in self.character.tagged_skills:
                     setattr(self.character, attr, getattr(self.character, attr) - 20)
                     getattr(self, box).setValue(getattr(self.character, attr))
-                    self.tagged_skills.remove(skill)
+                    self.character.tagged_skills.remove(skill)
+                    break
 
                 else:
-                    if label.buddy().isChecked() and skill not in self.tagged_skills and skill == label.text():
-                        label.buddy().setCheckState(QtCore.Qt.Unchecked)
+                    label.buddy().setCheckState(QtCore.Qt.Unchecked)
+                    break
 
     def next_page(self):
         if self.stackedWidget.currentIndex() < self.stackedWidget.count():
@@ -395,13 +413,27 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
             self.character = character.SuperMutantCharacter()
 
     def set_default_attribute_values(self):
-        self.strengthBox.setValue(self.character.strength)
-        self.perceptionBox.setValue(self.character.perception)
-        self.enduranceBox.setValue(self.character.endurance)
-        self.charismaBox.setValue(self.character.charisma)
-        self.intelligenceBox.setValue(self.character.intelligence)
-        self.agilityBox.setValue(self.character.agility)
-        self.luckBox.setValue(self.character.luck)
+        self.strengthBox.setValue(self.character.strength[0])
+        self.perceptionBox.setValue(self.character.perception[0])
+        self.enduranceBox.setValue(self.character.endurance[0])
+        self.charismaBox.setValue(self.character.charisma[0])
+        self.intelligenceBox.setValue(self.character.intelligence[0])
+        self.agilityBox.setValue(self.character.agility[0])
+        self.luckBox.setValue(self.character.luck[0])
+        self.strengthModBox.setValue(sum(self.character.strength[1]))
+        self.perceptionModBox.setValue(sum(self.character.perception[1]))
+        self.enduranceModBox.setValue(sum(self.character.endurance[1]))
+        self.charismaModBox.setValue(sum(self.character.charisma[1]))
+        self.intelligenceModBox.setValue(sum(self.character.intelligence[1]))
+        self.agilityModBox.setValue(sum(self.character.agility[1]))
+        self.luckModBox.setValue(sum(self.character.luck[1]))
+        self.strengthTotalBox.setValue(self.character.total_value(self.character.strength))
+        self.perceptionTotalBox.setValue(self.character.total_value(self.character.perception))
+        self.enduranceTotalBox.setValue(self.character.total_value(self.character.endurance))
+        self.charismaTotalBox.setValue(self.character.total_value(self.character.charisma))
+        self.intelligenceTotalBox.setValue(self.character.total_value(self.character.intelligence))
+        self.agilityTotalBox.setValue(self.character.total_value(self.character.agility))
+        self.luckTotalBox.setValue(self.character.total_value(self.character.luck))
 
     def set_attribute_limits(self):
         self.strengthBox.setMinimum(self.character.MIN_STRENGTH)
@@ -445,35 +477,50 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
         self.traitListWidget.clear()
         for trait in config.TRAIT_LIST:
             if str(self.character) in trait.races:
-                item = QtWidgets.QListWidgetItem(trait.name)
+                item = QtWidgets.QListWidgetItem(str(trait))
                 item.setFlags(item.flags() | QtCore.Qt.ItemIsUserCheckable)
                 item.setCheckState(QtCore.Qt.Unchecked)
                 self.traitListWidget.addItem(item)
 
+        self.traitListWidget.sortItems(QtCore.Qt.AscendingOrder)
+
     def show_trait_description(self):
         for trait in config.TRAIT_LIST:
             if trait.name == self.traitListWidget.currentItem().text():
-                self.descriptionBox.setText(trait.effect)
+                self.descriptionBox.setText(trait.description)
                 break
 
     def handle_trait_check(self):
-        for i in range(self.traitListWidget.count()):
-            for trait in config.TRAIT_LIST:
-                if self.traitListWidget.item(i).checkState() and self.traitListWidget.item(i).text() == trait.name:
-                    if len(self.character.traits) < 2:
-                        self.character.add_trait(trait)
-                        break
-                    elif len(self.character.traits) == 2 and trait not in self.character.traits:
-                        self.traitListWidget.item(i).setCheckState(QtCore.Qt.Unchecked)
 
-                elif not self.traitListWidget.item(i).checkState() and self.traitListWidget.item(i).text() == \
-                        trait.name and trait in self.character.traits:
-                    self.character.remove_trait(trait)
+        list_items = [self.traitListWidget.item(i).text() for i in range(self.traitListWidget.count())]
+        traits_available = sorted([trait for trait in config.TRAIT_LIST if trait.name in list_items],
+                                  key=lambda trait: trait.name)
+
+        for i, trait in enumerate(traits_available):
+            if self.traitListWidget.item(i).checkState() and str(trait) not in self.character.traits:
+                if len(self.character.traits) < 2:
+                    attr_name = trait.attribute_mod[1].lower()
+                    attr = getattr(self.character, attr_name)
+                    mod = attr[1]
+                    mod.update({trait.name: trait.attribute_mod[0]})
+                    setattr(self.character, attr_name, (attr[0], mod))
+                    self.character.add_trait(trait)
                     break
+                elif len(self.character.traits) == 2 and str(trait) not in self.character.traits:
+                    self.traitListWidget.item(i).setCheckState(QtCore.Qt.Unchecked)
+
+            elif not self.traitListWidget.item(i).checkState() and str(trait) in self.character.traits:
+                attr_name = trait.attribute_mod[1].lower()
+                attr = getattr(self.character, attr_name)
+                mod = attr[1]
+                del mod[trait.name]
+                setattr(self.character, attr_name, (attr[0], mod))
+                self.character.remove_trait(trait)
+                break
 
     def validate_fields(self):
         return self.nameField.text() and self.ageField.text() and self.eyesField.text() and self.hairField.text() and \
-                self.heightField.text() and self.weightField.text()
+               self.heightField.text() and self.weightField.text()
 
     def finish_character_creation(self):
         if self.validate_fields() and len(self.tagged_skills) == 3 and self.available_skill_points == 0:

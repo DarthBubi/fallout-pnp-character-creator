@@ -33,7 +33,7 @@
    <item row="0" column="0">
     <widget class="QStackedWidget" name="stackedWidget">
      <property name="currentIndex">
-      <number>2</number>
+      <number>1</number>
      </property>
      <widget class="QWidget" name="page">
       <layout class="QGridLayout" name="gridLayout_3">
@@ -173,27 +173,17 @@
       <widget class="QWidget" name="gridLayoutWidget">
        <property name="geometry">
         <rect>
-         <x>10</x>
-         <y>40</y>
-         <width>155</width>
-         <height>294</height>
+         <x>20</x>
+         <y>50</y>
+         <width>211</width>
+         <height>231</height>
         </rect>
        </property>
        <layout class="QGridLayout" name="gridLayout_4">
-        <item row="4" column="1">
-         <widget class="QSpinBox" name="intelligenceBox"/>
+        <item row="7" column="1">
+         <widget class="QSpinBox" name="luckBox"/>
         </item>
-        <item row="0" column="0">
-         <widget class="QLabel" name="strengthLabel">
-          <property name="text">
-           <string>Strength</string>
-          </property>
-          <property name="buddy">
-           <cstring>strengthBox</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="5" column="0">
+        <item row="6" column="0">
          <widget class="QLabel" name="agilityLabel">
           <property name="text">
            <string>Agility</string>
@@ -203,46 +193,7 @@
           </property>
          </widget>
         </item>
-        <item row="0" column="1">
-         <widget class="QSpinBox" name="strengthBox"/>
-        </item>
         <item row="3" column="0">
-         <widget class="QLabel" name="charismaLabel">
-          <property name="text">
-           <string>Charisma</string>
-          </property>
-          <property name="buddy">
-           <cstring>charismaBox</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="6" column="0">
-         <widget class="QLabel" name="luckLabel">
-          <property name="text">
-           <string>Luck</string>
-          </property>
-          <property name="buddy">
-           <cstring>luckBox</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="4" column="0">
-         <widget class="QLabel" name="intelligenceLabel">
-          <property name="text">
-           <string>Intelligence</string>
-          </property>
-          <property name="buddy">
-           <cstring>intelligenceBox</cstring>
-          </property>
-         </widget>
-        </item>
-        <item row="3" column="1">
-         <widget class="QSpinBox" name="charismaBox"/>
-        </item>
-        <item row="6" column="1">
-         <widget class="QSpinBox" name="luckBox"/>
-        </item>
-        <item row="2" column="0">
          <widget class="QLabel" name="enduranceLabel">
           <property name="text">
            <string>Endurance</string>
@@ -252,7 +203,76 @@
           </property>
          </widget>
         </item>
+        <item row="8" column="1">
+         <widget class="QLineEdit" name="availablePointsBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
         <item row="1" column="0">
+         <widget class="QLabel" name="strengthLabel">
+          <property name="text">
+           <string>Strength</string>
+          </property>
+          <property name="buddy">
+           <cstring>strengthBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="1">
+         <widget class="QSpinBox" name="charismaBox"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="QSpinBox" name="strengthBox"/>
+        </item>
+        <item row="6" column="1">
+         <widget class="QSpinBox" name="agilityBox"/>
+        </item>
+        <item row="2" column="1">
+         <widget class="QSpinBox" name="perceptionBox"/>
+        </item>
+        <item row="7" column="0">
+         <widget class="QLabel" name="luckLabel">
+          <property name="text">
+           <string>Luck</string>
+          </property>
+          <property name="buddy">
+           <cstring>luckBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="1">
+         <widget class="QSpinBox" name="intelligenceBox"/>
+        </item>
+        <item row="8" column="0">
+         <widget class="QLabel" name="label_35">
+          <property name="text">
+           <string>Points to go</string>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="0">
+         <widget class="QLabel" name="charismaLabel">
+          <property name="text">
+           <string>Charisma</string>
+          </property>
+          <property name="buddy">
+           <cstring>charismaBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="0">
+         <widget class="QLabel" name="intelligenceLabel">
+          <property name="text">
+           <string>Intelligence</string>
+          </property>
+          <property name="buddy">
+           <cstring>intelligenceBox</cstring>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="0">
          <widget class="QLabel" name="perceptionLabel">
           <property name="text">
            <string>Perception</string>
@@ -262,26 +282,125 @@
           </property>
          </widget>
         </item>
-        <item row="5" column="1">
-         <widget class="QSpinBox" name="agilityBox"/>
-        </item>
-        <item row="1" column="1">
-         <widget class="QSpinBox" name="perceptionBox"/>
-        </item>
-        <item row="2" column="1">
+        <item row="3" column="1">
          <widget class="QSpinBox" name="enduranceBox"/>
         </item>
-        <item row="7" column="0">
-         <widget class="QLabel" name="label_35">
-          <property name="text">
-           <string>Points to go</string>
+        <item row="1" column="2">
+         <widget class="QSpinBox" name="strengthModBox">
+          <property name="readOnly">
+           <bool>true</bool>
           </property>
          </widget>
         </item>
-        <item row="7" column="1">
-         <widget class="QLineEdit" name="availablePointsBox">
+        <item row="1" column="3">
+         <widget class="QSpinBox" name="strengthTotalBox">
           <property name="readOnly">
            <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="3">
+         <widget class="QSpinBox" name="enduranceTotalBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="3">
+         <widget class="QSpinBox" name="charismaTotalBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="3">
+         <widget class="QSpinBox" name="luckTotalBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="3">
+         <widget class="QSpinBox" name="agilityTotalBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="3">
+         <widget class="QSpinBox" name="intelligenceTotalBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="3">
+         <widget class="QSpinBox" name="perceptionTotalBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="6" column="2">
+         <widget class="QSpinBox" name="agilityModBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="3" column="2">
+         <widget class="QSpinBox" name="enduranceModBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="2" column="2">
+         <widget class="QSpinBox" name="perceptionModBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="7" column="2">
+         <widget class="QSpinBox" name="luckModBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="5" column="2">
+         <widget class="QSpinBox" name="intelligenceModBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="4" column="2">
+         <widget class="QSpinBox" name="charismaModBox">
+          <property name="readOnly">
+           <bool>true</bool>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="1">
+         <widget class="QLabel" name="baseValueLabel">
+          <property name="text">
+           <string>Base</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="2">
+         <widget class="QLabel" name="modValueLabel">
+          <property name="text">
+           <string>Mod</string>
+          </property>
+         </widget>
+        </item>
+        <item row="0" column="3">
+         <widget class="QLabel" name="totalValueLabel">
+          <property name="text">
+           <string>Total</string>
           </property>
          </widget>
         </item>
