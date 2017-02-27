@@ -502,24 +502,30 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
         for i, trait in enumerate(traits_available):
             if self.traitListWidget.item(i).checkState() and str(trait) not in self.character.traits:
                 if len(self.character.traits) < 2:
-                    attr_name = trait.attribute_mod[1].lower()
-                    attr = getattr(self.character, attr_name)
-                    mod = attr[1]
-                    mod.update({trait.name: trait.attribute_mod[0]})
-                    setattr(self.character, attr_name, (attr[0], mod))
+                    self.handle_modifiers(trait)
                     self.character.add_trait(trait)
                     break
-                elif len(self.character.traits) == 2 and str(trait) not in self.character.traits:
+                elif len(self.character.traits) == 2:
                     self.traitListWidget.item(i).setCheckState(QtCore.Qt.Unchecked)
 
             elif not self.traitListWidget.item(i).checkState() and str(trait) in self.character.traits:
-                attr_name = trait.attribute_mod[1].lower()
-                attr = getattr(self.character, attr_name)
-                mod = attr[1]
-                del mod[trait.name]
-                setattr(self.character, attr_name, (attr[0], mod))
+                self.handle_modifiers(trait, True)
                 self.character.remove_trait(trait)
                 break
+
+    # TODO: Handle skill modifiers
+    def handle_modifiers(self, trait, remove=False):
+        if trait.attribute_mod[1]:
+            attr_name = trait.attribute_mod[1].lower()
+            attr = getattr(self.character, attr_name)
+            mod = attr[1]
+            if remove:
+                del mod[trait.name]
+            else:
+                mod.update({trait.name: trait.attribute_mod[0]})
+            setattr(self.character, attr_name, (attr[0], mod))
+        elif trait.skill_mod:
+            pass
 
     def validate_fields(self):
         return self.nameField.text() and self.ageField.text() and self.eyesField.text() and self.hairField.text() and \
