@@ -359,7 +359,6 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
 
                 self.availablePointsBox.setText(str(self.available_skill_points))
 
-    # TODO: Update attribute view
     def handle_skill_tag_change(self, skill):
         attr = skill.replace(" ", "_").lower()
         components = attr.split('_')
