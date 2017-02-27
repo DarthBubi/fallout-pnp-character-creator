@@ -19,16 +19,18 @@ TRAIT_LIST = [
           "Your total action points are lowered, but your Strength is increased. You get a 2 point bonus to Strength,"
           " but loose 2 Action Points.",
           ALL_RACES,
-          2, "strength"),
+          attr_mod=2, attr_name="strength"),
     Trait("Small Frame",
           "You are not quite as big as everyone else, but that never slowed you down. You can't carry as much, but you"
           " are more agile. You get a 1 point bonus to Agility, but your Carry Weight is only 15 lbs Y Strength.",
-          ALL_RACES),
+          ALL_RACES,
+          attr_mod=1, attr_name="Agility"),
     Trait("One Handed",
           "One of your hands is very dominant. You excel with single-handed weapons, but two-handed weapons cause a"
           " problem. You have a 40% penalty to hit with two-handed weapons, but get a 20% bonus to hit with weapons "
           "that only require one hand. Animals cannot choose this trait.",
-          ALL_RACES - ANIMALS),
+          ALL_RACES - ANIMALS,
+          ),
     Trait("Finesse",
           "Your attacks show a lot of finesse. You don't do as much damage, but you cause more critical hits. All of "
           "your attacks lose 30% of their damage (after reductions are made for Damage Resistance, etc.) but you gain "
@@ -116,7 +118,8 @@ TRAIT_LIST = [
           "You spent your formative years hunched over a bench learning all about the way things work. The trouble "
           "is that you’ve ruined your eyes! You get a +15% bonus to Science, Repair, and Lockpick skills, but you "
           "lose 1 Perception. Deathclaws and Dogs cannot choose this trait.",
-          ALL_RACES - ANIMALS),
+          ALL_RACES - ANIMALS,
+          attr_mod=-1, attr_name="Perception"),
     Trait("Fear the Reaper",
           "You have cheated death! You gain perks as if you were a human, but you are now on death’s short list. "
           "This means that once a month, you must roll against Luck or else drop dead. Only Ghouls can choose this "
@@ -127,7 +130,8 @@ TRAIT_LIST = [
           "The good news is that you gain a +10 bonus to your Armor Class thanks to your extra-tough skin. The bad "
           "news is that everyone within ten hexes of your location, friend and foe, suffers a 1-point penalty to "
           "Perception (you are unaffected). Only Mutants can choose this trait.",
-          ["Half Mutant", "Super Mutant"]),
+          ["Half Mutant", "Super Mutant"],
+          attr_mod=-1, attr_name="Perception"),
     Trait("Ham Fisted",
           "Genetic engineering – or dumb luck – has endowed you with huge hands. You get a “free” tag skill in "
           "Unarmed, but you suffer a -20% penalty to Small Guns, First Aid, Doctor, Repair, Science, and Lockpick "
@@ -137,7 +141,8 @@ TRAIT_LIST = [
           "You have undergone extensive house training and have developed an above average Intelligence. Your IN is "
           "raised by 1, and can even go above your racial maximum, but you get a –2 penalty to Melee Damage. Only "
           "Deathclaws and Dogs can choose this trait.",
-          ANIMALS),
+          ANIMALS,
+          attr_mod=1, attr_name="Intelligence"),
     Trait("Rabid",
           "You are a half-crazed, feral killing machine. You are not affected by crippled limbs (blindness still "
           "affects you normally), and every time you kill an opponent in combat, you get 5 more APs that round. "
