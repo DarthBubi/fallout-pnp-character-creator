@@ -526,7 +526,7 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
                self.heightField.text() and self.weightField.text()
 
     def finish_character_creation(self):
-        if self.validate_fields() and len(self.tagged_skills) == 3 and self.available_skill_points == 0:
+        if self.validate_fields() and len(self.character.tagged_skills) == 3 and self.available_skill_points == 0:
             self.character.name = self.nameField.text()
             self.character.age = self.ageField.text()
             self.character.sex = self.sexPicker.currentText()
