@@ -334,29 +334,28 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
         self.set_skill_values()
         self.list_traits()
 
-    # TODO: Check total value against maximum/minimum value
     def handle_attribute_value_change(self, attribute):
-        attr = attribute.lower()
-        box = attr + "Box"
-        mod_box = attr + "ModBox"
-        total_box = attr + "TotalBox"
+        attr_name = attribute.lower()
+        base_box_name = attr_name + "Box"
+        mod_box_name = attr_name + "ModBox"
+        total_box_name = attr_name + "TotalBox"
 
         for label in self.findChildren(QtWidgets.QLabel):
-            if isinstance(label.buddy(), QtWidgets.QSpinBox):
-                if attribute == label.text() and self.available_skill_points >= 0:
-                    attr_vals = getattr(self.character, attr)
-                    if getattr(self.character, attr)[0] > getattr(self, box).value():
-                        self.available_skill_points += 1
-                    elif getattr(self.character, attr)[0] < getattr(self, box).value() and \
-                                    self.available_skill_points > 0:
-                        self.available_skill_points -= 1
-                    else:
-                        getattr(self, box).setValue(getattr(self.character, attr)[0])
+            if isinstance(label.buddy(), QtWidgets.QSpinBox) and attribute == label.text() and self.available_skill_points >= 0:
+                attr_vals = getattr(self.character, attr_name)
+                base_box = getattr(self, base_box_name)
+                total_box = getattr(self, total_box_name)
 
-                    setattr(self.character, attr, (getattr(self, box).value(), attr_vals[1]))
-                    getattr(self, mod_box).setValue(sum(getattr(self.character, attr)[1].values()))
-                    getattr(self, total_box).setValue(self.character.total_value(getattr(self.character, attr)))
+                if base_box.value() < attr_vals[0] and total_box.value() != total_box.minimum():
+                    self.available_skill_points += 1
+                elif base_box.value() > attr_vals[0] and total_box.value() != total_box.maximum() and self.available_skill_points > 0:
+                    self.available_skill_points -= 1
+                else:
+                    base_box.setValue(attr_vals[0])
 
+                setattr(self.character, attr_name, (base_box.value(), attr_vals[1]))
+                getattr(self, mod_box_name).setValue(sum(attr_vals[1].values()))
+                total_box.setValue(self.character.total_value(getattr(self.character, attr_name)))
                 self.availablePointsBox.setText(str(self.available_skill_points))
 
     def handle_skill_tag_change(self, skill):
@@ -453,6 +452,20 @@ class NewCharacterDialogue(QtWidgets.QDialog, new_character_dialogue.Ui_Dialog):
         self.agilityBox.setMaximum(self.character.MAX_AGILITY)
         self.luckBox.setMinimum(self.character.MIN_LUCK)
         self.luckBox.setMaximum(self.character.MAX_LUCK)
+        self.strengthTotalBox.setMinimum(self.character.MIN_STRENGTH)
+        self.strengthTotalBox.setMaximum(self.character.MAX_STRENGTH)
+        self.perceptionTotalBox.setMinimum(self.character.MIN_PERCEPTION)
+        self.perceptionTotalBox.setMaximum(self.character.MAX_PERCEPTION)
+        self.enduranceTotalBox.setMinimum(self.character.MIN_ENDURANCE)
+        self.enduranceTotalBox.setMaximum(self.character.MAX_ENDURANCE)
+        self.charismaTotalBox.setMinimum(self.character.MIN_CHARISMA)
+        self.charismaTotalBox.setMaximum(self.character.MAX_CHARISMA)
+        self.intelligenceTotalBox.setMinimum(self.character.MIN_INTELLIGENCE)
+        self.intelligenceTotalBox.setMaximum(self.character.MAX_INTELLIGENCE)
+        self.agilityTotalBox.setMinimum(self.character.MIN_AGILITY)
+        self.agilityTotalBox.setMaximum(self.character.MAX_AGILITY)
+        self.luckTotalBox.setMinimum(self.character.MIN_LUCK)
+        self.luckTotalBox.setMaximum(self.character.MAX_LUCK)
 
     def set_skill_values(self):
         self.character.calculate_base_skills()
