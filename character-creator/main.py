@@ -138,9 +138,9 @@ class CharacterCreator(QtWidgets.QMainWindow, main_view.Ui_MainWindow):
 
     def delete_character(self):
         self.changes = True
-        choice = QtWidgets.QMessageBox.question(self, 'Delete Character',
-                                                QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No,
-                                                "Do you want to delete the current character?")
+        choice = QtWidgets.QMessageBox.question(self, 'Delete Character', "Do you want to delete the current "
+                                                                          "character?",
+                                                QtWidgets.QMessageBox.Yes | QtWidgets.QMessageBox.No)
         if choice == QtWidgets.QMessageBox.Yes:
             del self.character_dict[self.characterListWidget.currentItem().text()]
             self.characterListWidget.takeItem(self.characterListWidget.row(self.characterListWidget.currentItem()))
